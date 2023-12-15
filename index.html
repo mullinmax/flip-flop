@@ -4,65 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flip-Flop</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-        }
-        #tab-toggle {
-            position: fixed;
-            top: 5px;
-            left: 5px;
-            z-index: 101;
-            cursor: pointer;
-            font-size: 24px;
-            color: #333;
-        }
-        #tab-container {
-            display: flex;
-            background-color: #333;
-            margin: 0;
-            padding: 0;
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 100;
-            transition: top 0.3s;    
-        }
-        .tab {
-            font-size: 16px;
-            flex-grow: 1;
-            padding: 10px 20px;
-            text-align: center;
-            background-color: #333;
-            color: white;
-            border: none;
-            outline: none;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        .tab:hover {
-            background-color: #555;
-        }
-        .tab.active {
-            background-color: #777;
-        }
-        iframe {
-            width: 100%;
-            height: calc(100vh); /* Adjust height as per the tab height */
-            border: none;
-        }
-    </style>
-    
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="tab-toggle" onclick="toggleTabBar()">☰</div>
+    <div id="menu-toggle" onclick="toggleMenu()">☰</div>
     <div id="tab-container">
         <!-- Tabs will be added here dynamically -->
     </div>
-    <iframe id="app-frame" src="" width="100%" height="600px"></iframe>
+    <iframe id="app-frame" src=""></iframe>
 
     <script src="app.js"></script>
 </body>
