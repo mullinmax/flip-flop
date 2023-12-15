@@ -35,6 +35,7 @@ function selectTab(index) {
     iframes.forEach((iframe, i) => {
         iframe.style.display = i === index ? 'block' : 'none';
     });
+    // TODO activate correct iframe and then wait a tiny second before deativating the other
     document.querySelectorAll('.tab').forEach((tab, i) => {
         tab.classList.toggle('active', i === index);
     });
