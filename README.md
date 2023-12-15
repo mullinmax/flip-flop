@@ -43,3 +43,14 @@ Contributions are welcome. Please feel free to submit pull requests or open issu
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
+
+## TODO
+
+- parse docker labels
+- hide FAB when menu is open
+- close menu on any click away
+- grey-out iframe when menu is open
+- yaml based config parsing
+- better menu item spacing/styles
+- publish docker image
+- testing

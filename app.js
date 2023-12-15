@@ -81,7 +81,6 @@ function showMenu() {
     tabContainer.style.right = '0px';
     tabContainer.classList.remove('closed');
     clearTimeout(inactivityTimer); // Stop inactivity timer when menu is open
-    hideFAB()
 }
 
 function hideFAB() {
