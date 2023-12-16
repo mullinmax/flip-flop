@@ -13,6 +13,9 @@ def run(server_class=HTTPServer, handler_class=ServerHandler, port=5000):
     print(f'Starting httpd server on port {port}')
     httpd.serve_forever()
 
+def is_docker_socket_available():
+    return os.path.exists('/var/run/docker.sock')
+
 def get_flip_flop_urls():
     client = docker.from_env()
     containers = client.containers.list()
@@ -25,11 +28,6 @@ def get_flip_flop_urls():
             urls.append(flip_flop_url)
 
     return urls
-
-# Example usage
-urls = get_flip_flop_urls()
-print(urls)
-
 
 if __name__ == '__main__':
     run()
