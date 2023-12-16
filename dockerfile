@@ -1,21 +1,17 @@
-# Use an official Python runtime as a parent image
-FROM python:3.9
+# Use a slim version of Python 3.11 as the base image
+FROM python:3.11-slim
 
-# Set the working directory in the container
-WORKDIR /usr/src/app
+# Set the working directory inside the container to /app
+WORKDIR /app
 
-# Copy the current directory contents into the container at /usr/src/app
-COPY . .
+# Copy the requirements file into the container
+COPY requirements.txt .
 
-# Install any needed packages specified in requirements.txt
-COPY requirements.txt ./
+# Install Python dependencies specified in requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Make port 80 available to the world outside this container
-EXPOSE 80
+# Copy the rest of the application's code into the container
+COPY . .
 
-# Define environment variable
-ENV NAME Flip-Flop
-
-# Run app.py when the container launches
-CMD ["python", "server.py"]
+# Run the Flask application using Gunicorn on port 80 by default (or use PORT env var if set)
+CMD ["sh", "-c", "gunicorn -b :${PORT:-80} app:app"]

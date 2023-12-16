@@ -46,11 +46,20 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## TODO
 
-- [ ] parse docker labels
-- [ ] hide FAB when menu is open
-- [ ] close menu on any click away
-- [ ] grey-out iframe when menu is open
-- [ ] yaml based config parsing
-- [ ] better menu item spacing/styles
-- [x] publish docker image
-- [ ] testing 
+- server:
+    - [ ] parse docker labels
+    - [ ] yaml based config parsing
+- dev:
+    - [x] publish docker image
+    - [x] flask-ify
+    - [ ] testing 
+    - [ ] reduce docker image size using slim/alpine base
+- styles:
+    - [ ] hide FAB when menu is open
+    - [ ] close menu on any click away
+    - [ ] grey-out iframe when menu is open
+    - [ ] better menu item spacing/styles
+- config:
+    - [ ] custom app name
+    - [ ] custom themes/theme switching
+    - [ ] manual url/icon/name additions
