@@ -32,6 +32,7 @@ def index():
 @app.route('/docker-labels')
 def docker_labels():
     labels = get_docker_labels()
+    print(labels)
     return jsonify(labels)
 
 if __name__ == '__main__':

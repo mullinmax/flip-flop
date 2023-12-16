@@ -49,11 +49,12 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 - server:
     - [ ] parse docker labels
     - [ ] yaml based config parsing
+    - [x] flask-ify
 - dev:
     - [x] publish docker image
-    - [x] flask-ify
     - [ ] testing 
-    - [ ] reduce docker image size using slim/alpine base
+    - [x] reduce docker image size using slim/alpine base
+    - [ ] setup pre-commit
 - styles:
     - [ ] hide FAB when menu is open
     - [ ] close menu on any click away

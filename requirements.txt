@@ -1,3 +1,6 @@
 Flask
 docker
 gunicorn
+pytest
+pytest-flask
+Flask-Testing
