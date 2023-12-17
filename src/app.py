@@ -30,24 +30,35 @@ def get_docker_labels():
                 c.labels.get("flip-flop.instance", "").split(",")
                 + c.labels.get("flip-flop.instances", "").split(",")
             )
+
             return instance_name in intances
 
-        relevant_containers = [c for c in containers if container_filter]
+        relevant_containers = [c for c in containers if container_filter(c)]
 
         # Extract the required label information
         labels_info = []
         for c in relevant_containers:
             try:
+                name = c.labels.get("flip-flop.name")
+                url = c.labels.get("flip-flop.url")
+                icon = c.labels.get("flip-flop.icon", "")
+
+                if name is None:
+                    raise Exception("flip-flop.name was not found in labels")
+
+                if url is None:
+                    raise Exception("flip-flop.url was not found in labels")
+
                 labels_info.append(
                     {
-                        "name": c.labels.get("flip-flop.name"),
-                        "url": c.labels.get("flip-flop.url"),
-                        "icon": c.labels.get("flip-flop.icon", ""),
+                        "name": name,
+                        "url": url,
+                        "icon": icon,
                     }
                 )
             except Exception as e:
                 app.logger.error(
-                    f"Error fetching Docker labels for container named {c.name}" f"{e}"
+                    f"Error fetching Docker labels for container named {c.name}\n{e}"
                 )
 
         return labels_info
