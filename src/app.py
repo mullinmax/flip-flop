@@ -10,7 +10,17 @@ DOCKER_SOCKET_PATH = os.getenv("DOCKER_SOCKET_PATH", "/var/run/docker.sock")
 
 
 def is_docker_socket_available():
-    return os.path.exists(DOCKER_SOCKET_PATH)
+    if not os.path.exists(DOCKER_SOCKET_PATH):
+        return False
+    try:
+        with open(DOCKER_SOCKET_PATH, "r"):
+            pass
+        return True
+    except PermissionError:
+        app.logger.error(
+            f"Permission denied for Docker socket at {DOCKER_SOCKET_PATH}."
+        )
+        return False
 
 
 def get_docker_labels():
@@ -29,7 +39,10 @@ def get_docker_labels():
             c
             for c in containers
             if "flip-flop.url" in c.labels
-            and instance_name in c.labels.get("flip-flop.instances", "").split(",")
+            and instance_name
+            in c.labels.get("flip-flop.instances", "").split(
+                ","
+            )  # TODO allow for instance or instances
         ]
 
         # Extract the required label information

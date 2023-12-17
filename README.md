@@ -53,12 +53,15 @@ This project is licensed under the MIT License - see the LICENSE file for detail
     - [x] setup pre-commit
     - [x] protect main branch
     - [x] contibuting guide
+    - [ ] setup releases
 - server:
-    - [ ] parse docker labels
+    - [x] parse docker labels
+    - [ ] docker labels for order
     - [ ] yaml based config parsing
         - [ ] custom app name
         - [ ] custom themes/theme switching
         - [ ] manual url/icon/name additions
+        - [ ] custom favicon
     - [x] flask-ify
 - styles:
     - [ ] hide FAB when menu is open
