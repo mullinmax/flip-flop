@@ -1,6 +1,7 @@
-Flask
 docker
 gunicorn
+Flask
+Flask-Testing
 pytest
 pytest-flask
-Flask-Testing
+pre-commit
