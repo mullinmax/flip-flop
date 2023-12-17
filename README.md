@@ -54,17 +54,23 @@ This project is licensed under the MIT License - see the LICENSE file for detail
     - [x] protect main branch
     - [x] contibuting guide
     - [ ] setup releases
+    - [ ] badges for tests passing, current version, etc.
 - server:
     - [x] parse docker labels
+    - [x] flask-ify
     - [ ] docker labels for order
     - [ ] yaml based config parsing
         - [ ] custom app name
         - [ ] custom themes/theme switching
         - [ ] manual url/icon/name additions
-        - [ ] custom favicon
-    - [x] flask-ify
-- styles:
+        - [ ] custom favicon for app
+        - [ ] banner/alerts
+- front end:
     - [ ] hide FAB when menu is open
     - [ ] close menu on any click away
     - [ ] grey-out iframe when menu is open
     - [ ] better menu item spacing/styles
+    - [ ] show banners/alerts (downtime annoucements)
+- documentation:
+    - [ ] how to install
+    - [ ] how to configure
