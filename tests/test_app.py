@@ -51,6 +51,4 @@ def test_docker_label_parsing(mock_docker_env, mock_socket_avail, client):
     labels_response = client.get("/docker-labels")
     assert labels_response.status_code == 200
     data = labels_response.json
-    assert data == [
-        {"name": "mock_container", "url": "http://example.com", "icon": "🔥"}
-    ]
+    assert data == [{"name": "example", "url": "http://example.com", "icon": "🔥"}]

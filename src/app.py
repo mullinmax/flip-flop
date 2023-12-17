@@ -25,25 +25,30 @@ def get_docker_labels():
         containers = client.containers.list()
 
         # Filter containers that have the relevant labels
-        relevant_containers = [
-            c
-            for c in containers
-            if "flip-flop.url" in c.labels
-            and instance_name
-            in c.labels.get("flip-flop.instances", "").split(
-                ","
-            )  # TODO allow for instance or instances
-        ]
+        def container_filter(c):
+            intances = set(
+                c.labels.get("flip-flop.instance", "").split(",")
+                + c.labels.get("flip-flop.instances", "").split(",")
+            )
+            return instance_name in intances
+
+        relevant_containers = [c for c in containers if container_filter]
 
         # Extract the required label information
-        labels_info = [
-            {
-                "name": c.name,
-                "url": c.labels.get("flip-flop.url"),
-                "icon": c.labels.get("flip-flop.icon", ""),
-            }
-            for c in relevant_containers
-        ]
+        labels_info = []
+        for c in relevant_containers:
+            try:
+                labels_info.append(
+                    {
+                        "name": c.labels.get("flip-flop.name"),
+                        "url": c.labels.get("flip-flop.url"),
+                        "icon": c.labels.get("flip-flop.icon", ""),
+                    }
+                )
+            except Exception as e:
+                app.logger.error(
+                    f"Error fetching Docker labels for container named {c.name}" f"{e}"
+                )
 
         return labels_info
     except Exception as e:
@@ -64,5 +69,5 @@ def docker_labels():
 
 
 if __name__ == "__main__":
-    port = int(os.getenv("PORT", 80))
+    port = int(os.getenv("FLIP_FLOP_PORT", 80))
     app.run(host="0.0.0.0", port=port)
