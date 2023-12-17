@@ -51,6 +51,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
     - [x] testing
     - [x] reduce docker image size using slim/alpine base
     - [x] setup pre-commit
+    - [x] protect main branch
 - server:
     - [ ] parse docker labels
     - [ ] yaml based config parsing
