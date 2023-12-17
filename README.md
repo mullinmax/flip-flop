@@ -53,6 +53,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
     - [x] setup pre-commit
     - [x] protect main branch
     - [x] contibuting guide
+    - [ ] setup releases
 - server:
     - [x] parse docker labels
     - [ ] docker labels for order
