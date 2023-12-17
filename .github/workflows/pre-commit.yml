@@ -15,8 +15,8 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Install pre-commit
-        run: pip install pre-commit
+      - name: Install dependencies
+        run: pip install -r requirements.txt
 
       - name: Run pre-commit on all files
         run: pre-commit run --all-files
