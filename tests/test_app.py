@@ -40,10 +40,17 @@ def mock_docker():
 def test_docker_label_parsing(mock_docker_env, mock_socket_avail, client):
     mock_container = MagicMock()
     mock_container.name = "mock_container"
-    mock_container.labels = {"flip-flop.url": "http://example.com"}
+    mock_container.labels = {
+        "flip-flop.instances": "a,b,c,default",
+        "flip-flop.name": "example",
+        "flip-flop.url": "http://example.com",
+        "flip-flop.icon": "🔥",
+    }
     mock_docker_env.return_value.containers.list.return_value = [mock_container]
 
     labels_response = client.get("/docker-labels")
     assert labels_response.status_code == 200
     data = labels_response.json
-    assert data == {"mock_container": "http://example.com"}
+    assert data == [
+        {"name": "mock_container", "url": "http://example.com", "icon": "🔥"}
+    ]

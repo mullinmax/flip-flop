@@ -14,7 +14,7 @@ def is_docker_socket_available():
 
 
 def get_docker_labels():
-    instance_name = os.getenv("FLIP_FLOP_INSTANCE", "default")
+    instance_name = os.getenv("FLIP_FLOP_INSTANCE_NAME", "default")
 
     if not is_docker_socket_available():
         app.logger.error("Docker socket not available.")
@@ -26,8 +26,10 @@ def get_docker_labels():
 
         # Filter containers that have the relevant labels
         relevant_containers = [
-            c for c in containers
-            if "flip-flop.url" in c.labels and instance_name in c.labels.get("flip-flop.instances", "").split(',')
+            c
+            for c in containers
+            if "flip-flop.url" in c.labels
+            and instance_name in c.labels.get("flip-flop.instances", "").split(",")
         ]
 
         # Extract the required label information
@@ -35,11 +37,11 @@ def get_docker_labels():
             {
                 "name": c.name,
                 "url": c.labels.get("flip-flop.url"),
-                "icon": c.labels.get("flip-flop.icon", "")
+                "icon": c.labels.get("flip-flop.icon", ""),
             }
             for c in relevant_containers
         ]
-        
+
         return labels_info
     except Exception as e:
         app.logger.error(f"Error fetching Docker labels: {e}")

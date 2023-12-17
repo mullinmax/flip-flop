@@ -1,10 +1,3 @@
-const apps = [
-    { name: "Flame", url: "https://start.doze.dev", icon: "🔥" },
-    { name: "Plex", url: "https://plex.doze.dev" },
-    { name: "Media Status Dashboard", url: "https://uptime.doze.dev/status/plex" },
-    { name: "Media Requests", url: "https://requests.doze.dev" }
-];
-
 const tabContainer = document.getElementById('tab-container');
 const menuToggle = document.getElementById('menu-toggle');
 let inactivityTimer;
