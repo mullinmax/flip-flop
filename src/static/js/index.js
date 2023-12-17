@@ -6,10 +6,7 @@ let iframes = [];
 function loadApps() {
     fetch('/docker-labels')
         .then(response => response.json())
-        .then(data => {
-            const apps = Object.entries(data).map(([name, url]) => {
-                return { name, url };
-            });
+        .then(apps => { // Assuming 'apps' is already an array of objects with name, url, icon
             setupTabs(apps);
         })
         .catch(error => console.error('Error loading apps:', error));

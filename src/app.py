@@ -29,7 +29,7 @@ def get_docker_labels():
             c
             for c in containers
             if "flip-flop.url" in c.labels
-            and instance_name in c.labels.get("flip-flop.instances", "").split(",")
+            and instance_name in c.labels.get("flip-flop.instances", "").split(",")#TODO allow for instance or instances
         ]
 
         # Extract the required label information
