@@ -14,12 +14,13 @@ repos:
     rev: 22.3.0  # Use the latest version
     hooks:
       - id: black
-        language_version: python3  # Adjust to your Python version
+        args: ['--config=pyproject.toml']
 
   - repo: https://github.com/PyCQA/flake8
     rev: 4.0.1  # Use the latest version
     hooks:
       - id: flake8
+        args: ['--config=pyproject.toml']
 
   - repo: local
     hooks:

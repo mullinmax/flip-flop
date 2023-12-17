@@ -39,7 +39,7 @@ def mock_docker():
 @patch("docker.from_env")
 def test_docker_label_parsing(mock_docker_env, mock_socket_avail, client):
     mock_container = MagicMock()
-    mock_container.name = "mock_container"  # Set the container name to a string
+    mock_container.name = "mock_container"
     mock_container.labels = {"flip-flop.url": "http://example.com"}
     mock_docker_env.return_value.containers.list.return_value = [mock_container]
 
