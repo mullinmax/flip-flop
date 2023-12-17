@@ -52,16 +52,16 @@ This project is licensed under the MIT License - see the LICENSE file for detail
     - [x] reduce docker image size using slim/alpine base
     - [x] setup pre-commit
     - [x] protect main branch
+    - [x] contibuting guide
 - server:
-    - [ ] parse docker labels
     - [ ] yaml based config parsing
+        - [ ] custom app name
+        - [ ] custom themes/theme switching
+        - [ ] manual url/icon/name additions
+    - [ ] parse docker labels
     - [x] flask-ify
 - styles:
     - [ ] hide FAB when menu is open
     - [ ] close menu on any click away
     - [ ] grey-out iframe when menu is open
     - [ ] better menu item spacing/styles
-- config:
-    - [ ] custom app name
-    - [ ] custom themes/theme switching
-    - [ ] manual url/icon/name additions
