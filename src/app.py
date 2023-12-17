@@ -10,18 +10,7 @@ DOCKER_SOCKET_PATH = os.getenv("DOCKER_SOCKET_PATH", "/var/run/docker.sock")
 
 
 def is_docker_socket_available():
-    if not os.path.exists(DOCKER_SOCKET_PATH):
-        return False
-    try:
-        with open(DOCKER_SOCKET_PATH, "r"):
-            pass
-        return True
-    except PermissionError:
-        app.logger.error(
-            f"Permission denied for Docker socket at {DOCKER_SOCKET_PATH}."
-        )
-        return False
-
+    return os.path.exists(DOCKER_SOCKET_PATH):
 
 def get_docker_labels():
     instance_name = os.getenv("FLIP_FLOP_INSTANCE_NAME", "default")
