@@ -10,26 +10,40 @@ const menuToggle = document.getElementById('menu-toggle');
 let inactivityTimer;
 let iframes = [];
 
-// Create and preload iframes for each app
-apps.forEach((app, index) => {
-    const iframe = document.createElement('iframe');
-    iframe.src = app.url;
-    iframe.style.display = index === 0 ? 'block' : 'none'; // Display the first iframe
-    iframe.style.width = '100%';
-    iframe.style.height = '100vh';
-    iframe.style.border = 'none';
-    document.body.appendChild(iframe);
-    iframes.push(iframe);
+function loadApps() {
+    fetch('/docker-labels')
+        .then(response => response.json())
+        .then(data => {
+            const apps = Object.entries(data).map(([name, url]) => {
+                return { name, url };
+            });
+            setupTabs(apps);
+        })
+        .catch(error => console.error('Error loading apps:', error));
+}
 
-    const tab = document.createElement('button');
-    tab.className = 'tab';
-    tab.innerHTML = getTabContent(app);
-    tab.onclick = () => {
-        selectTab(index);
-        hideMenu();
-    };
-    tabContainer.appendChild(tab);
-});
+function setupTabs(apps) {
+    apps.forEach((app, index) => {
+        const iframe = document.createElement('iframe');
+        iframe.src = app.url;
+        iframe.style.display = index === 0 ? 'block' : 'none'; // Display the first iframe
+        iframe.style.width = '100%';
+        iframe.style.height = '100vh';
+        iframe.style.border = 'none';
+        document.body.appendChild(iframe);
+        iframes.push(iframe);
+
+        const tab = document.createElement('button');
+        tab.className = 'tab';
+        tab.innerHTML = getTabContent(app);
+        tab.onclick = () => {
+            selectTab(index);
+            hideMenu();
+        };
+        tabContainer.appendChild(tab);
+    });
+    selectTab(0); // Select the first tab by default
+}
 
 function selectTab(index) {
     iframes.forEach((iframe, i) => {
@@ -106,4 +120,4 @@ function resetInactivityTimer() {
 
 // Initialize
 resetInactivityTimer();
-selectTab(0); // Select the first tab by default
+loadApps();  // Load apps and setup tabs
