@@ -1,5 +1,11 @@
 # Flip-Flop
 
+![GitHub Actions Status](https://github.com/mullinmax/flip-flop/actions/workflows/docker-publish.yml/badge.svg)
+![GitHub Actions Status](https://github.com/mullinmax/flip-flop/actions/workflows/python-tests.yml/badge.svg)
+![GitHub Release](https://img.shields.io/github/v/release/mullinmax/flip-flop)
+![GitHub issues](https://img.shields.io/github/issues/mullinmax/flip-flop)
+
+
 Flip-Flop is a web application designed to consolidate various web apps into a single, easy-to-navigate interface with a tabbed structure. It's ideal for integrating multiple self-hosted services like Plex, Flame, and others.
 
 ## Features
@@ -53,18 +59,24 @@ This project is licensed under the MIT License - see the LICENSE file for detail
     - [x] setup pre-commit
     - [x] protect main branch
     - [x] contibuting guide
-    - [ ] setup releases
+    - [x] setup releases
+    - [x] badges for tests passing, current version, etc.
 - server:
     - [x] parse docker labels
+    - [x] flask-ify
     - [ ] docker labels for order
     - [ ] yaml based config parsing
         - [ ] custom app name
         - [ ] custom themes/theme switching
         - [ ] manual url/icon/name additions
-        - [ ] custom favicon
-    - [x] flask-ify
-- styles:
+        - [ ] custom favicon for app
+        - [ ] banner/alerts
+- front end:
     - [ ] hide FAB when menu is open
     - [ ] close menu on any click away
     - [ ] grey-out iframe when menu is open
     - [ ] better menu item spacing/styles
+    - [ ] show banners/alerts (downtime annoucements)
+- documentation:
+    - [ ] how to install
+    - [ ] how to configure
