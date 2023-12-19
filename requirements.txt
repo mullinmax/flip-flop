@@ -5,3 +5,4 @@ Flask-Testing
 pytest
 pytest-flask
 pre-commit
+pyyaml

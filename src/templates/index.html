@@ -3,10 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flip-Flop</title>
+    <title>{{ name }}</title>
+    <link rel="icon" type="png" href="{{ url_for('static', filename='img/flip_flop_favicon.png') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
 </head>
 <body>
+    {% if banner_title %}
+    <div id="banner" class="banner">
+        <div class="banner-content">
+            <span class="banner-title">{{ banner_title }}</span>
+            {% if banner_body %}
+            <p class="banner-body">{{ banner_body }}</p>
+            {% endif %}
+        </div>
+        <button onclick="dismissBanner()">X</button>
+    </div>
+    {% endif %}
     <div id="menu-toggle" onclick="toggleMenu()">☰</div>
     <div id="tab-container">
         <!-- Tabs will be added here dynamically -->
