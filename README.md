@@ -64,12 +64,12 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 - server:
     - [x] parse docker labels
     - [x] flask-ify
-    - [ ] docker labels for order
+    - [x] docker labels for order
     - [ ] yaml based config parsing
         - [ ] custom app name
+        - [ ] custom favicon for app
         - [ ] custom themes/theme switching
         - [ ] manual url/icon/name additions
-        - [ ] custom favicon for app
         - [ ] banner/alerts
 - front end:
     - [ ] hide FAB when menu is open
@@ -77,6 +77,8 @@ This project is licensed under the MIT License - see the LICENSE file for detail
     - [ ] grey-out iframe when menu is open
     - [ ] better menu item spacing/styles
     - [ ] show banners/alerts (downtime annoucements)
+    - [ ] if iframe fails to load log error and do not display
 - documentation:
     - [ ] how to install
     - [ ] how to configure
+    - [ ] iframe headers
