@@ -58,7 +58,7 @@ def get_docker_labels():
                     f"Error fetching Docker labels for container named {c.name}\n{e}"
                 )
 
-        labels_info.sort(key=lambda x: x["priority"])
+        labels_info.sort(key=lambda x: int(x["priority"]))
         return labels_info
     except Exception as e:
         app.logger.error(f"Error fetching Docker labels: {e}")
