@@ -82,3 +82,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
     - [ ] how to install
     - [ ] how to configure
     - [ ] iframe headers
+    - [ ] demo and dev instances
