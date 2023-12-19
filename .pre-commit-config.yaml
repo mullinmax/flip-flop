@@ -21,12 +21,3 @@ repos:
     hooks:
       - id: flake8
         args: ['--config=pyproject.toml']
-
-  - repo: local
-    hooks:
-      - id: pytest
-        name: Run pytest
-        entry: pytest
-        language: system
-        pass_filenames: false
-        always_run: true

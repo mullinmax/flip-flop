@@ -11,7 +11,7 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy the rest of the application's code into the container
-COPY ./src/ .
+COPY . .
 
 # Run the Flask application using Gunicorn on port 80 by default (or use PORT env var if set)
-CMD ["sh", "-c", "gunicorn -b :${PORT:-80} app:app"]
+CMD ["sh", "-c", "gunicorn -b :${PORT:-80} src/app:app"]
