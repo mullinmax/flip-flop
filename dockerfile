@@ -14,4 +14,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # Run the Flask application using Gunicorn on port 80 by default (or use PORT env var if set)
-CMD ["sh", "-c", "gunicorn -b :${PORT:-80} app:src/app"]
+CMD ["sh", "-c", "gunicorn -b :${PORT:-80} src.app:app"]
