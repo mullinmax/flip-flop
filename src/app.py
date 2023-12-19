@@ -3,18 +3,18 @@ import docker
 import os
 import logging
 
+from src.config import config
+
 app = Flask(__name__)
 logging.basicConfig(level=logging.INFO)
 
-DOCKER_SOCKET_PATH = os.getenv("DOCKER_SOCKET_PATH", "/var/run/docker.sock")
-
 
 def is_docker_socket_available():
-    return os.path.exists(DOCKER_SOCKET_PATH)
+    return os.path.exists(config.get("FLIP_FLOP_DOCKER_SOCKET_PATH"))
 
 
 def get_docker_labels():
-    instance_name = os.getenv("FLIP_FLOP_INSTANCE_NAME", "default")
+    instance_name = config.get("FLIP_FLOP_INSTANCE")
 
     if not is_docker_socket_available():
         app.logger.error("Docker socket not available.")
@@ -67,7 +67,12 @@ def get_docker_labels():
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    return render_template(
+        "index.html",
+        name=config.get("FLIP_FLOP_NAME"),
+        banner_title=config.get("FLIP_FLOP_BANNER_TITLE"),
+        banner_body=config.get("FLIP_FLOP_BANNER_BODY"),
+    )
 
 
 @app.route("/docker-labels")
@@ -78,5 +83,5 @@ def docker_labels():
 
 
 if __name__ == "__main__":
-    port = int(os.getenv("FLIP_FLOP_PORT", 80))
+    port = int(config.get("FLIP_FLOP_PORT"))
     app.run(host="0.0.0.0", port=port)

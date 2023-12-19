@@ -89,7 +89,43 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 50; // Ensure it's above the iframe but below other elements
-    display: none; // Initially hidden
+    z-index: 50;
+    display: none;
     pointer-events: none;
+}
+
+.banner {
+    background-color: #124fa5; /* Deep blue color */
+    color: white;
+    padding: 10px 20px;
+    position: fixed;
+    width: 100%;
+    max-width: 600px; /* Maximum width for larger screens */
+    left: 50%;
+    transform: translateX(-50%); /* Center the banner */
+    top: 20px; /* Positioned a bit lower from the top */
+    z-index: 1000;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    border-radius: 10px; /* Rounded corners */
+}
+.banner-content {
+    text-align: center;
+}
+.banner-title {
+    font-size: 18px;
+    font-weight: bold;
+}
+.banner-body {
+    font-size: 14px;
+    margin-top: 5px;
+}
+.banner button {
+    position: absolute;
+    right: 20px; /* Adjusted to keep within the banner */
+    top: 10px;
+    border: none;
+    background-color: transparent;
+    font-size: 20px;
+    cursor: pointer;
+    color: white; /* Set the color to match the banner's text color */
 }

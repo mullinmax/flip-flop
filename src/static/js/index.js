@@ -111,3 +111,8 @@ function resetInactivityTimer() {
 // Initialize
 resetInactivityTimer();
 loadApps();  // Load apps and setup tabs
+
+
+function dismissBanner() {
+    document.getElementById('banner').style.display = 'none';
+}

@@ -65,12 +65,12 @@ This project is licensed under the MIT License - see the LICENSE file for detail
     - [x] parse docker labels
     - [x] flask-ify
     - [x] docker labels for order
-    - [ ] yaml based config parsing
-        - [ ] custom app name
-        - [ ] custom favicon for app
+    - [x] yaml based config parsing
+        - [x] custom app name
+        - [x] custom favicon for app
+        - [x] banner/alerts
         - [ ] custom themes/theme switching
-        - [ ] manual url/icon/name additions
-        - [ ] banner/alerts
+        - [ ] non-docker url/icon/name additions
 - front end:
     - [ ] hide FAB when menu is open
     - [ ] close menu on any click away
