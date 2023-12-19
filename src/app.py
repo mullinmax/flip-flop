@@ -42,6 +42,7 @@ def get_docker_labels():
                 name = c.labels.get("flip-flop.name")
                 url = c.labels.get("flip-flop.url")
                 icon = c.labels.get("flip-flop.icon", "")
+                priority = c.labels.get("flip-flop.priority", 0)
 
                 if name is None:
                     raise Exception("flip-flop.name was not found in labels")
@@ -50,17 +51,14 @@ def get_docker_labels():
                     raise Exception("flip-flop.url was not found in labels")
 
                 labels_info.append(
-                    {
-                        "name": name,
-                        "url": url,
-                        "icon": icon,
-                    }
+                    {"name": name, "url": url, "icon": icon, "priority": priority}
                 )
             except Exception as e:
                 app.logger.error(
                     f"Error fetching Docker labels for container named {c.name}\n{e}"
                 )
 
+        labels_info.sort(key=lambda x: x["priority"])
         return labels_info
     except Exception as e:
         app.logger.error(f"Error fetching Docker labels: {e}")
