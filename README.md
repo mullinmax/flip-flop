@@ -1,4 +1,5 @@
-# Flip-Flop
+# <img src="./src/static/img/flip_flop_logo.jpg" height="40px"> Flip-Flop
+
 
 ![GitHub Actions Status](https://github.com/mullinmax/flip-flop/actions/workflows/docker-publish.yml/badge.svg)
 ![GitHub Actions Status](https://github.com/mullinmax/flip-flop/actions/workflows/python-tests.yml/badge.svg)
@@ -6,52 +7,80 @@
 ![GitHub issues](https://img.shields.io/github/issues/mullinmax/flip-flop)
 
 
-Flip-Flop is a web application designed to consolidate various web apps into a single, easy-to-navigate interface with a tabbed structure. It's ideal for integrating multiple self-hosted services like Plex, Flame, and others.
+Do you self host a suite of containerized web applications and struggle to keep friends and family up to date on what's available and where? Flip-Flop might be the tool for you. It's goal is simple, give users one page to bookmark where they can actually use the applications they want. Flip-Flop uses docker labels to bring all your web interfaces into a tabbed structure with additional features to help communicate things like scheduled maitinance to users.
+
 
 ## Features
 
-- Tabbed interface for easy navigation.
-- Smooth transition between different web apps.
-- Customizable tabs with support for favicons or icons.
-- Responsive design for desktop and mobile compatibility.
+- Tabbed interface for easy navigation between apps.
+- Customizeable themes, favicons, etc.
+- Responsive design for desktop and mobile compatibility. There's room to improve here.
+- Banner alerts to communicate with users
+- multiple instance support; run as many instances of flip-flop on one host as you like with different content
+- minimal if any configuration required. All options available as an environment variable or yaml
 
 ## Installation
 
-To run Flip-Flop, you need Docker installed on your system.
+```docker
+version: "3.8"
 
-1. Clone the repository:
+services:
+  flip-flop:
+    image: ghcr.io/mullinmax/flip-flop:main
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - "flip-flop-data:/config" # optionally add config.yaml for configuration
+      - "/var/run/docker.sock:/var/run/docker.sock:ro" #mount your docker socket as read only
+    environment:
+    # Sets the page title (what the tab name is)
+    - FLIP_FLOP_NAME=Maxwell's Dashboard
 
-`git clone https://github.com/mullinmax/flip-flop.git`
+    # sets the name of the instance, defaults to "default"
+    # allows for multiple flip-flops to run on the same system and have different content
+    - FLIP_FLOP_INSTANCE=main
 
-2. Navigate to the project directory:
+    # Banner information
+    - FLIP_FLOP_BANNER_TITLE=Scheduled Downtime 1/1/23
+    - FLIP_FLOP_BANNER_BODY=Expect services to be down for scheduled maitinance 1pm-5pm
 
-`cd flip-flop`
+    # Use to override default
+    #- FLIP_FLOP_FAVICON=/config/custom_favicon.ico
+    #- FLIP_FLOP_THEME=/config/custom_theme.css
 
-3. Build the Docker image:
+    # Sets internal port number, defaults to 80
+    #- FLIP_FLOP_PORT=80
 
-`docker build -t flip-flop .`
+    # Use if your setup requires for some reason
+    #- FLIP_FLOP_DOCKER_SOCKET_PATH=/var/run/docker.sock
+volumes:
+  flip-flop-data:
+```
 
-4. Run the container:
-
-`docker run -p 80:80 flip-flop`
-
-
-The application should now be running on [http://localhost](http://localhost).
 
 ## Configuration
 
-You can configure the tabs by editing the `apps` array in `app.js`.
+#### Config.yaml
+
+#### Docker Labels
+
+## Common issues
+
+#### Iframe headers
 
 ## Contributing
 
-Contributions are welcome. Please feel free to submit pull requests or open issues for improvements and bug fixes.
+Contributions are welcome. Please feel free to submit pull requests or open issues for improvements and bug fixes. This project is being actively developed and I would love to adapt this to something that's as useful to as many people as possible. I would especially love some help refining the CSS styles and adding some great themes.
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License - see [the LICENSE file](./LICENSE) for details.
 
 ## TODO
 
+These are very roughly in order
+#### 1.0:
 - dev:
     - [x] publish docker image
     - [x] testing
@@ -69,17 +98,20 @@ This project is licensed under the MIT License - see the LICENSE file for detail
         - [x] custom app name
         - [x] custom favicon for app
         - [x] banner/alerts
-        - [ ] custom themes/theme switching
-        - [ ] non-docker url/icon/name additions
 - front end:
+    - [x] show banners/alerts (downtime annoucements)
     - [ ] hide FAB when menu is open
     - [ ] close menu on any click away
     - [ ] grey-out iframe when menu is open
     - [ ] better menu item spacing/styles
-    - [ ] show banners/alerts (downtime annoucements)
     - [ ] if iframe fails to load log error and do not display
 - documentation:
-    - [ ] how to install
+    - [x] how to install
     - [ ] how to configure
     - [ ] iframe headers
     - [ ] demo and dev instances
+#### Future:
+- server:
+    - [ ] custom themes/theme switching
+    - [ ] non-docker url/icon/name additions
+    - [ ] multiple docker socks
