@@ -19,7 +19,9 @@ Do you self host a suite of containerized web applications and struggle to keep 
 - multiple instance support; run as many instances of flip-flop on one host as you like with different content
 - minimal if any configuration required. All options available as an environment variable or yaml
 
-## Installation
+## Setup
+
+#### Docker Compose
 
 ```docker
 version: "3.8"
@@ -58,16 +60,71 @@ volumes:
   flip-flop-data:
 ```
 
-
-## Configuration
-
 #### Config.yaml
+Optionally any configuration variable can be set via `config.yaml` file instead of environment variables. You can even mix-and-match configuration vs env variables. If for example you have two instances with different ports or names you could define those in the environment variables and define things like theme or docker socket path in your config file. Flip-Flop will always first consider environment variables, then the config file and finally defautls. Here is an example setup:
+
+```yaml
+# /config/config.yaml
+
+# Sets the page title (what the tab name is)
+FLIP_FLOP_NAME: "Maxwell's Dashboard"
+
+# Sets the name of the instance, defaults to "default"
+# Allows for multiple flip-flops to run on the same system and have different content
+FLIP_FLOP_INSTANCE: "main"
+
+# Banner information
+FLIP_FLOP_BANNER_TITLE: "Scheduled Downtime 1/1/23"
+FLIP_FLOP_BANNER_BODY: "Expect services to be down for scheduled maintenance 1pm-5pm"
+
+# Use to override defaults
+# FLIP_FLOP_FAVICON: "/config/custom_favicon.ico"
+# FLIP_FLOP_THEME: "/config/custom_theme.css"
+
+# Sets internal port number, defaults to 80
+# FLIP_FLOP_PORT: 80
+
+# Use if your setup requires for some reason
+# FLIP_FLOP_DOCKER_SOCKET_PATH: "/var/run/docker.sock"
+```
 
 #### Docker Labels
 
+Flip-Flop parses labels on your docker containers to figure out what tabs it should show in the web UI. Here's an example of how they are defined:
+```docker
+version: "3.8"
+
+networks:
+  default:
+    external: true
+    name: "traefik_default"
+
+services:
+  uptime-kuma:
+    image: louislam/uptime-kuma:latest
+    labels:
+      - "traefik.http.routers.uptime-kuma.rule=Host(`uptime.doze.dev`)"
+      - "traefik.http.services.uptime-kuma.loadbalancer.server.port=3001"
+
+      # allow iframes: see common issues before using
+      #- "traefik.http.routers.uptime-kuma.middlewares=uptime-kuma-modify-headers"
+      #- "traefik.http.middlewares.uptime-kuma-modify-headers.headers.customresponseheaders.X-Frame-Options="
+
+      - "flip-flop.instances=default"
+      - "flip-flop.name=Status Dashboard"
+      - "flip-flop.url=https://uptime.doze.dev/status/plex"
+      - "flip-flop.priority=5"
+    volumes:
+      - "uptime-kuma-data:/app/data"
+volumes:
+  uptime-kuma-data:
+```
+
 ## Common issues
 
-#### Iframe headers
+#### X-Frame-Options
+
+Flip-Flop uses iframes in order to allow users to switch between apps without leaving the central page. For good reason, many web applications disable being put into iframes. This prevents [Click jacking](https://en.wikipedia.org/wiki/Clickjacking). The example above includes labels you can use when using traefik as a reverse proxy to allow your app to be put into an iframe. Carefully consider how this impacts your security of yourself and your users. **Use at your own risk**. Thankfully many apps do not have this constraint so you don't have to do this often.
 
 ## Contributing
 
@@ -98,6 +155,12 @@ These are very roughly in order
         - [x] custom app name
         - [x] custom favicon for app
         - [x] banner/alerts
+    - [ ] different labels for each instance flip-flop.instance.url
+- documentation:
+    - [x] how to install
+    - [x] how to configure
+    - [x] iframe headers
+    - [ ] demo and dev instances
 - front end:
     - [x] show banners/alerts (downtime annoucements)
     - [ ] hide FAB when menu is open
@@ -105,13 +168,12 @@ These are very roughly in order
     - [ ] grey-out iframe when menu is open
     - [ ] better menu item spacing/styles
     - [ ] if iframe fails to load log error and do not display
-- documentation:
-    - [x] how to install
-    - [ ] how to configure
-    - [ ] iframe headers
-    - [ ] demo and dev instances
 #### Future:
 - server:
     - [ ] custom themes/theme switching
     - [ ] non-docker url/icon/name additions
     - [ ] multiple docker socks
+- dev:
+    - [ ] automatically update main branch and demo instances on update via webhook
+    - [ ] coverage report
+    - [ ] increase testing
