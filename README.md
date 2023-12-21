@@ -10,6 +10,8 @@
 Do you self host a suite of containerized web applications and struggle to keep friends and family up to date on what's available and where? Flip-Flop might be the tool for you. It's goal is simple, give users one page to bookmark where they can actually use the applications they want. Flip-Flop uses docker labels to bring all your web interfaces into a tabbed structure with additional features to help communicate things like scheduled maitinance to users.
 
 
+checkout the [Demo instance!](https://flip-flop-demo.doze.dev)
+
 ## Features
 
 - Tabbed interface for easy navigation between apps.
@@ -130,6 +132,8 @@ Flip-Flop uses iframes in order to allow users to switch between apps without le
 
 Contributions are welcome. Please feel free to submit pull requests or open issues for improvements and bug fixes. This project is being actively developed and I would love to adapt this to something that's as useful to as many people as possible. I would especially love some help refining the CSS styles and adding some great themes.
 
+A development instance is available [here](https://flip-flop-main.doze.dev) this instance will track the main branch.
+
 ## License
 
 This project is licensed under the MIT License - see [the LICENSE file](./LICENSE) for details.
@@ -160,7 +164,7 @@ These are very roughly in order
     - [x] how to install
     - [x] how to configure
     - [x] iframe headers
-    - [ ] demo and dev instances
+    - [x] demo and dev instances
 - front end:
     - [x] show banners/alerts (downtime annoucements)
     - [ ] hide FAB when menu is open
