@@ -71,8 +71,10 @@ function isMenuOpen() {
 function toggleMenu() {
     if (isMenuOpen()){
         hideMenu()
+        showFAB()
         return
     }
+    hideFAB()
     showMenu()
 }
 
