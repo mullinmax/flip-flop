@@ -112,10 +112,17 @@ services:
       #- "traefik.http.routers.uptime-kuma.middlewares=uptime-kuma-modify-headers"
       #- "traefik.http.middlewares.uptime-kuma-modify-headers.headers.customresponseheaders.X-Frame-Options="
 
-      - "flip-flop.instances=default"
-      - "flip-flop.name=Status Dashboard"
+      - "flip-flop.main.name=Status Dashboard"
+      - "flip-flop.main.priority=5"
+
+      # note that for url and icon I chose not to include main
+      # this makes these fields apply to all instances that parse the container
+      # This way I onny need to redefine priority and name to add this to another instance
       - "flip-flop.url=https://uptime.doze.dev/status/plex"
-      - "flip-flop.priority=5"
+      # you only need to define this if you don't want to use the app's favicon. You can use an emoji
+      # in the future this will support custom paths to image files
+      - "flip-flop.icon=📈"
+
     volumes:
       - "uptime-kuma-data:/app/data"
 volumes:
@@ -159,7 +166,7 @@ These are very roughly in order
         - [x] custom app name
         - [x] custom favicon for app
         - [x] banner/alerts
-    - [ ] different labels for each instance flip-flop.instance.url
+    - [x] different labels for each instance flip-flop.instance.url
 - documentation:
     - [x] how to install
     - [x] how to configure

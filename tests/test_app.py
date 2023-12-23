@@ -35,23 +35,24 @@ def mock_docker():
         yield mock
 
 
-@patch("src.app.is_docker_socket_available", return_value=True)
-@patch("docker.from_env")
-def test_docker_label_parsing(mock_docker_env, mock_socket_avail, client):
+@patch("src.app.get_docker_containers")
+def test_docker_label_parsing(mock_get_docker_containers, client):
+    # Create a mock container with the expected attributes
     mock_container = MagicMock()
-    mock_container.name = "mock_container"
     mock_container.labels = {
         "flip-flop.instances": "a,b,c,default",
         "flip-flop.name": "example",
         "flip-flop.url": "http://example.com",
         "flip-flop.icon": "🔥",
-        "flip-flop.priority": 5,
+        "flip-flop.priority": "5",
     }
-    mock_docker_env.return_value.containers.list.return_value = [mock_container]
+
+    # Mock get_docker_containers to return a list containing the mock container
+    mock_get_docker_containers.return_value = [mock_container]
 
     labels_response = client.get("/docker-labels")
     assert labels_response.status_code == 200
     data = labels_response.json
     assert data == [
-        {"name": "example", "url": "http://example.com", "icon": "🔥", "priority": 5}
+        {"name": "example", "url": "http://example.com", "icon": "🔥", "priority": "5"}
     ]
