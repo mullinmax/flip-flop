@@ -180,6 +180,8 @@ These are very roughly in order
     - [ ] better menu item spacing/styles
     - [ ] if iframe fails to load log error and do not display
 #### Future:
+- front end:
+    - [ ] show version in side-bar
 - server:
     - [ ] custom themes/theme switching
     - [ ] non-docker url/icon/name additions

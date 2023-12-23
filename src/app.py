@@ -27,7 +27,7 @@ def get_label(key, labels):
     if generic_label in labels:
         return labels[generic_label]
 
-    defaults = {"priority": 9999}
+    defaults = {"priority": 9999, "icon": ""}
     if key in defaults:
         return defaults[key]
 
