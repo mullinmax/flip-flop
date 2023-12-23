@@ -6,7 +6,7 @@ let iframes = [];
 function loadApps() {
     fetch('/docker-labels')
         .then(response => response.json())
-        .then(apps => { // Assuming 'apps' is already an array of objects with name, url, icon
+        .then(apps => {
             setupTabs(apps);
         })
         .catch(error => console.error('Error loading apps:', error));
@@ -16,15 +16,19 @@ function setupTabs(apps) {
     apps.forEach((app, index) => {
         const iframe = document.createElement('iframe');
         iframe.src = app.url;
-        iframe.style.display = index === 0 ? 'block' : 'none'; // Display the first iframe
+        iframe.style.display = index === 0 ? 'block' : 'none';
         iframe.style.width = '100%';
         iframe.style.height = '100vh';
         iframe.style.border = 'none';
+        iframe.onerror = () => {
+            console.error('Error loading iframe for:', app.url);
+            iframe.style.display = 'none';
+        };
         document.body.appendChild(iframe);
         iframes.push(iframe);
 
         const tab = document.createElement('button');
-        tab.className = 'tab';
+        tab.className = 'tab tab-enhanced';
         tab.innerHTML = getTabContent(app);
         tab.onclick = () => {
             selectTab(index);
@@ -32,14 +36,13 @@ function setupTabs(apps) {
         };
         tabContainer.appendChild(tab);
     });
-    selectTab(0); // Select the first tab by default
+    selectTab(0);
 }
 
 function selectTab(index) {
     iframes.forEach((iframe, i) => {
         iframe.style.display = i === index ? 'block' : 'none';
     });
-    // TODO activate correct iframe and then wait a tiny second before deativating the other
     document.querySelectorAll('.tab').forEach((tab, i) => {
         tab.classList.toggle('active', i === index);
     });
@@ -69,25 +72,27 @@ function isMenuOpen() {
 }
 
 function toggleMenu() {
-    if (isMenuOpen()){
-        hideMenu()
-        showFAB()
-        return
+    if (isMenuOpen()) {
+        hideMenu();
+        showFAB();
+        return;
     }
-    hideFAB()
-    showMenu()
+    hideFAB();
+    showMenu();
 }
 
 function hideMenu() {
     tabContainer.style.right = '-200px';
     tabContainer.classList.add('closed');
-    resetInactivityTimer(); // Restart inactivity timer when menu is closed
+    iframes.forEach(iframe => iframe.classList.remove('iframe-greyed-out'));
+    resetInactivityTimer();
 }
 
 function showMenu() {
     tabContainer.style.right = '0px';
     tabContainer.classList.remove('closed');
-    clearTimeout(inactivityTimer); // Stop inactivity timer when menu is open
+    iframes.forEach(iframe => iframe.classList.add('iframe-greyed-out'));
+    clearTimeout(inactivityTimer);
 }
 
 function hideFAB() {
@@ -97,7 +102,7 @@ function hideFAB() {
 
 function showFAB() {
     menuToggle.style.right = '20px';
-    document.getElementById('overlay').style.display = 'none'; // Hide overlay when FAB is visible
+    document.getElementById('overlay').style.display = 'none';
 }
 
 function resetInactivityTimer() {
@@ -110,11 +115,26 @@ function resetInactivityTimer() {
     document.addEventListener(eventType, resetInactivityTimer);
 });
 
-// Initialize
-resetInactivityTimer();
-loadApps();  // Load apps and setup tabs
+document.addEventListener('click', function(event) {
+    let targetElement = event.target;
 
+    do {
+        if (targetElement == tabContainer) {
+            return;
+        }
+        targetElement = targetElement.parentNode;
+    } while (targetElement);
+
+    if (isMenuOpen()) {
+        hideMenu();
+        showFAB();
+    }
+});
 
 function dismissBanner() {
     document.getElementById('banner').style.display = 'none';
 }
+
+// Initialize
+resetInactivityTimer();
+loadApps();
