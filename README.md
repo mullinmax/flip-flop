@@ -181,3 +181,4 @@ These are very roughly in order
     - [ ] automatically update main branch and demo instances on update via webhook
     - [ ] coverage report
     - [ ] increase testing
+    - [ ] type hints
