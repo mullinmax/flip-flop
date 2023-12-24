@@ -175,7 +175,7 @@ These are very roughly in order
     - [x] demo and dev instances
 - front end:
     - [x] show banners/alerts (downtime annoucements)
-    - [ ] hide FAB when menu is open
+    - [x] hide FAB when menu is open
     - [ ] close menu on any click away
     - [ ] grey-out iframe when menu is open
     - [ ] better menu item spacing/styles
@@ -183,6 +183,7 @@ These are very roughly in order
 #### Future:
 - front end:
     - [ ] show version in side-bar
+    - [ ] tab categories
 - server:
     - [ ] custom themes/theme switching
     - [ ] non-docker url/icon/name additions

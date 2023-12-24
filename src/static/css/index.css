@@ -8,7 +8,7 @@ body {
 
 #tab-container {
     position: fixed;
-    right: 0;
+    right: 0px;
     top: 0;
     bottom: 0;
     width: 200px;
@@ -21,7 +21,7 @@ body {
 }
 
 #tab-container.closed {
-    box-shadow: none;
+    right: -200px;
 }
 
 #tab-container .tab {
@@ -35,6 +35,7 @@ body {
     outline: none;
     cursor: pointer;
     background-color: #333;
+    z-index: 105;
     transition: background-color 0.3s;
 }
 
@@ -55,7 +56,7 @@ body {
     border: none;
     filter: grayscale(0%);
     transition: filter 0.3s;
-    z-index: 10; /* Ensure it's above the background but below the overlay */
+    z-index: 10;
 }
 
 
@@ -91,7 +92,6 @@ body {
     height: 100%;
     z-index: 50;
     display: none;
-    pointer-events: none;
 }
 
 .banner {
