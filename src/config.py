@@ -35,10 +35,19 @@ default_config = {
 
 
 class Config:
+    _instance = None  # Class attribute to hold the single instance
+
+    def __new__(cls, *args, **kwargs):
+        if not cls._instance:
+            cls._instance = super(Config, cls).__new__(cls)
+        return cls._instance
+
     def __init__(self):
-        self.conf = {}
-        self.config_file_path = self.get("FLIP_FLOP_CONFIG_PATH")
-        self.load_config_file()
+        if not hasattr(self, "initialized"):  # Check if instance is already initialized
+            self.initialized = True
+            self.conf = {}
+            self.config_file_path = self.get("FLIP_FLOP_CONFIG_PATH")
+            self.load_config_file()
 
     def load_config_file(self):
         if os.path.exists(self.config_file_path):
@@ -48,6 +57,12 @@ class Config:
             logging.warning(
                 "Config file not found at: {}".format(self.config_file_path)
             )
+
+    def set(self, key, value):
+        """
+        This funciton should probably only be used for tests
+        """
+        self.conf[key] = value
 
     def get(self, key):
         value = self._get(key)

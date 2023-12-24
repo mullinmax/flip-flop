@@ -2,7 +2,7 @@ from flask import Flask, jsonify, render_template
 import docker
 import logging
 
-from config import config
+from src.config import config
 
 app = Flask(__name__)
 logging.basicConfig(level=logging.INFO)
@@ -39,24 +39,19 @@ def get_label(key, labels):
 
 def get_docker_labels():
     containers = get_docker_containers()
-    print(containers)
     tabs = []
     keys = ["name", "url", "icon", "priority"]
     try:
         for c in containers:
             labels = containers[c]["labels"]
-            print(labels)
             tab = {}
             for key in keys:
                 try:
                     tab[key] = get_label(key, labels)
                 except Exception:
-                    print(f"did not find {key} for {c}")
                     break
             if len(tab) == len(keys):
                 tabs.append(tab)
-            else:
-                print(f"not adding {c}")
         tabs.sort(key=lambda x: int(x["priority"]))
         return tabs
     except Exception as e:
@@ -77,7 +72,6 @@ def index():
 @app.route("/docker-labels")
 def docker_labels():
     labels = get_docker_labels()
-    print(labels)
     return jsonify(labels)
 
 

@@ -158,6 +158,7 @@ These are very roughly in order
     - [x] contibuting guide
     - [x] setup releases
     - [x] badges for tests passing, current version, etc.
+    - [x] "dev mode" to allow for easier development
 - server:
     - [x] parse docker labels
     - [x] flask-ify

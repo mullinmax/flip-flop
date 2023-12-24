@@ -1,6 +1,6 @@
-from unittest.mock import patch, MagicMock
 import pytest
 from src.app import app
+from src.config import config
 
 
 @pytest.fixture(scope="function")
@@ -29,30 +29,22 @@ def test_static_files(client):
     assert js_response.status_code == 200
 
 
-@pytest.fixture
-def mock_docker():
-    with patch("docker.from_env") as mock:
-        yield mock
-
-
-@patch("src.app.get_docker_containers")
-def test_docker_label_parsing(mock_get_docker_containers, client):
-    # Create a mock container with the expected attributes
-    mock_container = MagicMock()
-    mock_container.labels = {
-        "flip-flop.instances": "a,b,c,default",
-        "flip-flop.name": "example",
-        "flip-flop.url": "http://example.com",
-        "flip-flop.icon": "🔥",
-        "flip-flop.priority": "5",
-    }
-
-    # Mock get_docker_containers to return a list containing the mock container
-    mock_get_docker_containers.return_value = [mock_container]
-
+def test_docker_label_parsing(client):
+    config.set("FLIP_FLOP_DEV_MODE", True)
     labels_response = client.get("/docker-labels")
     assert labels_response.status_code == 200
     data = labels_response.json
     assert data == [
-        {"name": "example", "url": "http://example.com", "icon": "🔥", "priority": "5"}
+        {
+            "name": "App 1",
+            "url": "https://example.com/app1",
+            "icon": "🌐",
+            "priority": 9999,
+        },
+        {
+            "name": "App 2",
+            "url": "https://example.com/app2",
+            "icon": "🔧",
+            "priority": 9999,
+        },
     ]
