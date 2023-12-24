@@ -86,6 +86,7 @@ function isMenuOpen() {
 
 function showMenu() {
     tabContainer.classList.remove('closed');
+    darkenActiveIframe();
     iframes.forEach(iframe => iframe.classList.add('iframe-greyed-out'));
     clearTimeout(inactivityTimer);
     hideFAB();
@@ -93,6 +94,7 @@ function showMenu() {
 
 function hideMenu() {
     tabContainer.classList.add('closed');
+    undarkenAllIframes();
     iframes.forEach(iframe => iframe.classList.remove('iframe-greyed-out'));
     resetInactivityTimer();
 }
@@ -131,3 +133,15 @@ function dismissBanner() {
 // Initialize
 loadApps();
 resetInactivityTimer();
+
+function darkenActiveIframe() {
+    const activeIframe = document.querySelector('iframe.active');
+    if (activeIframe) {
+        activeIframe.classList.add('darken');
+    }
+}
+
+function undarkenAllIframes() {
+    const iframes = document.querySelectorAll('iframe');
+    iframes.forEach(iframe => iframe.classList.remove('darken'));
+}

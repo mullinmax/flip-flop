@@ -64,7 +64,7 @@ body {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    z-index: 101;
+    z-index: 90;
     cursor: pointer;
     background-color: #007bff;
     color: white;
