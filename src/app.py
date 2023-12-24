@@ -2,17 +2,20 @@ from flask import Flask, jsonify, render_template
 import docker
 import logging
 
-from src.config import config
+from config import config
 
 app = Flask(__name__)
 logging.basicConfig(level=logging.INFO)
 
 
 def get_docker_containers():
+    if config.get("FLIP_FLOP_DEV_MODE"):
+        return config.get("FLIP_FLOP_MOCK_CONTAINERS")
+
     socket_path = config.get("FLIP_FLOP_DOCKER_SOCKET_PATH")
     try:
         client = docker.DockerClient(base_url=f"unix:/{socket_path}")
-        return client.containers.list()
+        return {c.name: c.labels for c in client.containers.list()}
     except Exception as e:
         app.logger.error(str(e))
         app.logger.error(f"Failed to connect to docker socket at {socket_path}")
@@ -36,20 +39,24 @@ def get_label(key, labels):
 
 def get_docker_labels():
     containers = get_docker_containers()
+    print(containers)
     tabs = []
     keys = ["name", "url", "icon", "priority"]
     try:
         for c in containers:
-            labels = c.labels
+            labels = containers[c]["labels"]
+            print(labels)
             tab = {}
             for key in keys:
                 try:
                     tab[key] = get_label(key, labels)
                 except Exception:
+                    print(f"did not find {key} for {c}")
                     break
             if len(tab) == len(keys):
                 tabs.append(tab)
-        print(tabs)
+            else:
+                print(f"not adding {c}")
         tabs.sort(key=lambda x: int(x["priority"]))
         return tabs
     except Exception as e:

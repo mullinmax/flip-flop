@@ -14,6 +14,23 @@ default_config = {
     "FLIP_FLOP_BANNER_BODY": "this is a test",
     "FLIP_FLOP_CONFIG_PATH": "/config/flip_flop.yaml",
     "FLIP_FLOP_DOCKER_SOCKET_PATH": "/var/run/docker.sock",
+    "FLIP_FLOP_DEV_MODE": False,
+    "FLIP_FLOP_MOCK_CONTAINERS": {
+        "mock 1": {
+            "labels": {
+                "flip-flop.name": "App 1",
+                "flip-flop.url": "https://example.com/app1",
+                "flip-flop.icon": "🌐",
+            },
+        },
+        "mock 2": {
+            "labels": {
+                "flip-flop.name": "App 2",
+                "flip-flop.url": "https://example.com/app2",
+                "flip-flop.icon": "🔧",
+            },
+        },
+    },
 }
 
 
