@@ -176,14 +176,14 @@ These are very roughly in order
 - front end:
     - [x] show banners/alerts (downtime annoucements)
     - [x] hide FAB when menu is open
-    - [ ] close menu on any click away
-    - [ ] grey-out iframe when menu is open
-    - [ ] better menu item spacing/styles
-    - [ ] if iframe fails to load log error and do not display
+    - [x] close menu on any click away
+    - [x] grey-out iframe when menu is open
+    - [x] better menu item spacing/styles
 #### Future:
 - front end:
     - [ ] show version in side-bar
     - [ ] tab categories
+    - [ ] if iframe fails to load log error and do not display
 - server:
     - [ ] custom themes/theme switching
     - [ ] non-docker url/icon/name additions
