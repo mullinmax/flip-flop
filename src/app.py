@@ -57,14 +57,17 @@ def get_docker_labels():
     tabs = []
     for c in containers:
         labels = containers[c].get("labels", {})
-        tab = {
-            "name": get_label("name", labels),
-            "url": get_label("url", labels),
-            "icon": get_label("icon", labels)
-            or get_favicon_url(get_label("url", labels)),
-            "priority": get_label("priority", labels),
-        }
-        tabs.append(tab)
+        try:
+            tab = {
+                "name": get_label("name", labels),
+                "url": get_label("url", labels),
+                "icon": get_label("icon", labels)
+                or get_favicon_url(get_label("url", labels)),
+                "priority": get_label("priority", labels),
+            }
+            tabs.append(tab)
+        except Exception:
+            pass
     tabs.sort(key=lambda x: int(x["priority"]))
     return tabs
 
