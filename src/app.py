@@ -55,22 +55,18 @@ def get_label(key, labels):
 def get_docker_labels():
     containers = get_docker_containers()
     tabs = []
-    try:
-        for c in containers:
-            labels = containers[c]["labels"]
-            tab = {
-                "name": get_label("name", labels),
-                "url": get_label("url", labels),
-                "icon": get_label("icon", labels)
-                or get_favicon_url(get_label("url", labels)),
-                "priority": get_label("priority", labels),
-            }
-            tabs.append(tab)
-        tabs.sort(key=lambda x: int(x["priority"]))
-        return tabs
-    except Exception as e:
-        app.logger.error(f"Error fetching Docker labels: {e}")
-        return {"error": str(e)}
+    for c in containers:
+        labels = containers[c]["labels"]
+        tab = {
+            "name": get_label("name", labels),
+            "url": get_label("url", labels),
+            "icon": get_label("icon", labels)
+            or get_favicon_url(get_label("url", labels)),
+            "priority": get_label("priority", labels),
+        }
+        tabs.append(tab)
+    tabs.sort(key=lambda x: int(x["priority"]))
+    return tabs
 
 
 @app.route("/")
