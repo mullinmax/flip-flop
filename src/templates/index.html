@@ -8,20 +8,20 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
 </head>
 <body>
-    {% if banner_title %}
-    <div id="banner" class="banner">
-        <div class="banner-content">
+    <div id="menu-toggle" onclick="toggleMenu()">☰</div>
+    <div id="tab-container">
+        {% if banner_title %}
+        <div id="banner" class="banner">
             <span class="banner-title">{{ banner_title }}</span>
             {% if banner_body %}
             <p class="banner-body">{{ banner_body }}</p>
             {% endif %}
         </div>
-        <button onclick="dismissBanner()">X</button>
-    </div>
-    {% endif %}
-    <div id="menu-toggle" onclick="toggleMenu()">☰</div>
-    <div id="tab-container">
-        <!-- Tabs will be added here dynamically -->
+        {% endif %}
+        <button id="menu-close">X</button>
+        <div id="grid-container">
+            <!-- Tabs will be added here dynamically -->
+        </div>
     </div>
     <div id="overlay"></div>
     <script src="{{ url_for('static', filename='js/index.js') }}"></script>

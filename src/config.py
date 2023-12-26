@@ -26,7 +26,7 @@ default_config = {
         "mock 2": {
             "labels": {
                 "flip-flop.name": "App 2",
-                "flip-flop.url": "https://example.com/app2",
+                "flip-flop.url": "https://uptime.doze.dev",
                 "flip-flop.icon": "🔧",
             },
         },

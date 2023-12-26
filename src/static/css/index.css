@@ -1,64 +1,96 @@
+:root {
+    --background-color: black;
+    --menu-bg-color: #333;
+    --tab-hover-bg-color: #555;
+    --tab-active-bg-color: #777;
+    --banner-bg-color: #124fa5;
+    --button-bg-color: #007bff;
+    --button-hover-bg-color: #0056b3;
+    --text-color: white;
+    --button-border-radius: 10px;
+}
+
 body {
     font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: black;
+    background-color: var(--background-color);
     overflow: hidden;
 }
 
 #tab-container {
     position: fixed;
-    right: 0px;
     top: 0;
+    left: 0;
+    right: 0;
     bottom: 0;
-    width: 200px;
-    background-color: #333;
-    overflow-y: auto;
+    background-color: var(--menu-bg-color);
     z-index: 100;
-    box-shadow: -5px 0px 10px rgba(0,0,0,0.5);
-    transition: left 0.3s, box-shadow 0.3s;
-    transition: right 0.3s ease;
+    overflow-y: auto;
+    transform: translateX(0);
+    transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
 
-#tab-container.closed {
-    right: -200px;
+#tab-container.close {
+    transform: translateX(100%);
 }
 
-#tab-container .tab {
-    display: block;
+#grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 10px;
     width: 100%;
-    text-align: left;
-    font-size: 16px;
-    padding: 10px 20px;
-    color: white;
+    max-width: 600px;
+    justify-items: center;
+    align-items: start;
+}
+
+.tab {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around; /* Distribute space around items */
+    width: 100%; /* Full width of the grid column */
+    height: 100%; /* Full height of the grid row */
+    padding: 10px;
+    text-align: center;
+    color: var(--text-color);
     border: none;
     outline: none;
     cursor: pointer;
-    background-color: #333;
-    z-index: 105;
+    background-color: var(--menu-bg-color);
+    border-radius: var(--button-border-radius);
     transition: background-color 0.3s;
+    aspect-ratio: 1 / 1; /* Maintain 1:1 aspect ratio */
 }
 
-#tab-container .tab:hover {
-    background-color: #555;
+
+.tab img {
+    max-width: 70%; /* Larger percentage of tab's width */
+    max-height: 50%; /* Maximum height as a percentage of tab's height */
+    margin-bottom: 5px;
 }
 
-#tab-container .tab.active {
-    background-color: #777;
+.tab span {
+    font-size: calc(10px + 1vmin); /* Larger scalable font size */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
-#app-frame {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    border: none;
-    filter: grayscale(0%);
-    transition: filter 0.3s;
-    z-index: 10;
+.tab:hover {
+    background-color: var(--tab-hover-bg-color);
 }
 
+.tab.active {
+    background-color: var(--tab-active-bg-color);
+    font-weight: bold;
+}
 
 #menu-toggle {
     position: fixed;
@@ -66,8 +98,8 @@ body {
     right: 20px;
     z-index: 90;
     cursor: pointer;
-    background-color: #007bff;
-    color: white;
+    background-color: var(--button-bg-color);
+    color: var(--text-color);
     width: 50px;
     height: 50px;
     border-radius: 50%;
@@ -76,12 +108,31 @@ body {
     justify-content: center;
     font-size: 24px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-    transition: background-color 0.3s;
-    transition: right 0.3s;
+    transition: right 0.5s ease, background-color 0.3s;
 }
 
 #menu-toggle:hover {
-    background-color: #0056b3;
+    background-color: var(--button-hover-bg-color);
+}
+
+#menu-toggle.close {
+    right: -60px;
+}
+
+#menu-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: transparent;
+    border: none;
+    color: var(--text-color);
+    font-size: 24px;
+    cursor: pointer;
+    border-radius: var(--button-border-radius);
+}
+
+#menu-close:hover {
+    background-color: var(--tab-hover-bg-color);
 }
 
 #overlay {
@@ -95,37 +146,32 @@ body {
 }
 
 .banner {
-    background-color: #124fa5; /* Deep blue color */
-    color: white;
+    grid-column: 1 / -1;
+    background-color: var(--banner-bg-color);
+    color: var(--text-color);
     padding: 10px 20px;
-    position: fixed;
-    width: 100%;
-    max-width: 600px; /* Maximum width for larger screens */
-    left: 50%;
-    transform: translateX(-50%); /* Center the banner */
-    top: 20px; /* Positioned a bit lower from the top */
-    z-index: 1000;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    border-radius: 10px; /* Rounded corners */
-}
-.banner-content {
+    border-radius: 10px;
+    margin: 10px 0;
     text-align: center;
 }
+
 .banner-title {
     font-size: 18px;
     font-weight: bold;
 }
+
 .banner-body {
     font-size: 14px;
-    margin-top: 5px;
 }
+
 .banner button {
     position: absolute;
-    right: 20px; /* Adjusted to keep within the banner */
+    right: 20px;
     top: 10px;
     border: none;
     background-color: transparent;
     font-size: 20px;
     cursor: pointer;
-    color: white; /* Set the color to match the banner's text color */
+    color: var(--text-color);
 }
