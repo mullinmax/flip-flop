@@ -1,11 +1,26 @@
 from flask import Flask, jsonify, render_template
+from flask_caching import Cache
+from urllib.parse import urlparse
 import docker
 import logging
 
 from src.config import config
 
+flask_config = {
+    "CACHE_TYPE": "SimpleCache",
+    "CACHE_DEFAULT_TIMEOUT": config.get("FLIP_FLOP_CACHE_SECONDS"),
+}
+
 app = Flask(__name__)
+app.config.from_mapping(flask_config)
+cache = Cache(app)
+
 logging.basicConfig(level=logging.INFO)
+
+
+def get_favicon_url(url):
+    parsed_url = urlparse(url)
+    return f"{parsed_url.scheme}://{parsed_url.netloc}/favicon.ico"
 
 
 def get_docker_containers():
@@ -51,6 +66,8 @@ def get_docker_labels():
                 except Exception:
                     break
             if len(tab) == len(keys):
+                if not tab["icon"]:
+                    tab["icon"] = get_favicon_url(tab["url"])
                 tabs.append(tab)
         tabs.sort(key=lambda x: int(x["priority"]))
         return tabs
@@ -60,12 +77,15 @@ def get_docker_labels():
 
 
 @app.route("/")
+@cache.cached()
 def index():
+    tabs = get_docker_labels()
     return render_template(
         "index.html",
         name=config.get("FLIP_FLOP_NAME"),
         banner_title=config.get("FLIP_FLOP_BANNER_TITLE"),
         banner_body=config.get("FLIP_FLOP_BANNER_BODY"),
+        tabs=tabs,
     )
 
 
