@@ -84,6 +84,7 @@ def index():
     return render_template(
         "index.html",
         name=config.get("FLIP_FLOP_NAME"),
+        host=config.get("FLIP_FLOP_HOST"),
         banner_title=config.get("FLIP_FLOP_BANNER_TITLE"),
         banner_body=config.get("FLIP_FLOP_BANNER_BODY"),
         tabs=tabs,

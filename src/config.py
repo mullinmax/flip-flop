@@ -8,6 +8,7 @@ default_config = {
     "FLIP_FLOP_NAME": "Flip Flop",
     "FLIP_FLOP_FAVICON": "",
     "FLIP_FLOP_THEME": "",
+    "FLIP_FLOP_HOST": "https://github.com/mullinmax/flip-flop",
     "FLIP_FLOP_PORT": 80,
     "FLIP_FLOP_INSTANCE": "default",
     "FLIP_FLOP_BANNER_TITLE": "hello",
@@ -18,16 +19,26 @@ default_config = {
     "FLIP_FLOP_CACHE_SECONDS": 30,
     "FLIP_FLOP_MOCK_CONTAINERS": {
         "mock 1": {
-            "flip-flop.name": "App 1",
+            "flip-flop.name": "Flip-Flop Status",
             "flip-flop.url": "https://example.com/app1",
             "flip-flop.icon": "🌐",
         },
         "mock 2": {
-            "flip-flop.name": "App 2",
+            "flip-flop.name": "Flame Dashboard",
             "flip-flop.url": "https://example.com/app2",
             "flip-flop.icon": "🔧",
         },
         "mock 3": {},
+        "mock 4": {
+            "flip-flop.name": "App 1",
+            "flip-flop.url": "https://example.com/app1",
+            "flip-flop.icon": "🌐",
+        },
+        # "mock 5": {
+        #     "flip-flop.name": "App 2",
+        #     "flip-flop.url": "https://example.com/app2",
+        #     "flip-flop.icon": "🔧",
+        # },
     },
 }
 

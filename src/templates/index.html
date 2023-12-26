@@ -10,6 +10,10 @@
 <body>
     <div id="menu-toggle" onclick="toggleMenu()">☰</div>
     <div id="tab-container">
+        <div class="menu-title" onclick="location.href='{{ host }}'">
+            <img src="{{ url_for('static', filename='img/flip_flop_favicon.png') }}" alt="App Favicon">
+            <span>{{ name }}</span>
+        </div>
         {% if banner_title %}
             <div id="banner" class="banner">
                 <span class="banner-title">{{ banner_title }}</span>

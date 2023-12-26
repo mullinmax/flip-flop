@@ -179,6 +179,8 @@ These are very roughly in order
     - [x] close menu on any click away
     - [x] grey-out iframe when menu is open
     - [x] better menu item spacing/styles
+    - [ ] FAB hides after so many seconds of inactivity
+    - [ ] better text scaling for app icons
 #### Future:
 - front end:
     - [ ] show version in side-bar
