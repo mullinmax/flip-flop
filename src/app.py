@@ -55,20 +55,17 @@ def get_label(key, labels):
 def get_docker_labels():
     containers = get_docker_containers()
     tabs = []
-    keys = ["name", "url", "icon", "priority"]
     try:
         for c in containers:
             labels = containers[c]["labels"]
-            tab = {}
-            for key in keys:
-                try:
-                    tab[key] = get_label(key, labels)
-                except Exception:
-                    break
-            if len(tab) == len(keys):
-                if not tab["icon"]:
-                    tab["icon"] = get_favicon_url(tab["url"])
-                tabs.append(tab)
+            tab = {
+                "name": get_label("name", labels),
+                "url": get_label("url", labels),
+                "icon": get_label("icon", labels)
+                or get_favicon_url(get_label("url", labels)),
+                "priority": get_label("priority", labels),
+            }
+            tabs.append(tab)
         tabs.sort(key=lambda x: int(x["priority"]))
         return tabs
     except Exception as e:
@@ -80,6 +77,7 @@ def get_docker_labels():
 @cache.cached()
 def index():
     tabs = get_docker_labels()
+    app.logger.info(tabs)
     return render_template(
         "index.html",
         name=config.get("FLIP_FLOP_NAME"),
