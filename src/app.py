@@ -36,8 +36,8 @@ def get_docker_containers():
         app.logger.error(f"Failed to connect to docker socket at {socket_path}")
 
 
-def get_label(key, labels):
-    instance_label = f'flip-flop.{config.get("FLIP_FLOP_INSTANCE")}.{key}'
+def get_label(key, labels, instance):
+    instance_label = f"flip-flop.{instance}.{key}"
     if instance_label in labels:
         return labels[instance_label]
 
@@ -54,20 +54,24 @@ def get_label(key, labels):
 
 def get_docker_labels():
     containers = get_docker_containers()
+    instance = config.get("FLIP_FLOP_INSTANCE")
     tabs = []
     for c in containers:
         labels = containers[c].get("labels", {})
         try:
             tab = {
-                "name": get_label("name", labels),
-                "url": get_label("url", labels),
-                "icon": get_label("icon", labels)
-                or get_favicon_url(get_label("url", labels)),
-                "priority": get_label("priority", labels),
+                "name": get_label("name", labels, instance),
+                "url": get_label("url", labels, instance),
+                "icon": get_label("icon", labels, instance),
+                "priority": get_label("priority", labels, instance),
             }
+
+            if tab["icon"] == "":
+                tab["icon"] = get_favicon_url(tab["url"])
+
             tabs.append(tab)
-        except Exception:
-            pass
+        except Exception as e:
+            app.logger.info(f"Not adding container {c} because {str(e)}")
     tabs.sort(key=lambda x: int(x["priority"]))
     return tabs
 
