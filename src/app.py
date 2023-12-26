@@ -56,8 +56,7 @@ def get_docker_labels():
     containers = get_docker_containers()
     instance = config.get("FLIP_FLOP_INSTANCE")
     tabs = []
-    for c in containers:
-        labels = containers[c].get("labels", {})
+    for container, labels in containers.items():
         try:
             tab = {
                 "name": get_label("name", labels, instance),
@@ -70,8 +69,9 @@ def get_docker_labels():
                 tab["icon"] = get_favicon_url(tab["url"])
 
             tabs.append(tab)
+            app.logger.info(f"Added container {container}: {tab}")
         except Exception as e:
-            app.logger.info(f"Not adding container {c} because {str(e)}")
+            app.logger.info(f"Not adding container {container} because {str(e)}")
     tabs.sort(key=lambda x: int(x["priority"]))
     return tabs
 
