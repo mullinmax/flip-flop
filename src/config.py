@@ -31,6 +31,7 @@ default_config = {
                 "flip-flop.icon": "🔧",
             },
         },
+        "mock 3": {},
     },
 }
 
