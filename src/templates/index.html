@@ -21,18 +21,20 @@
         <button id="menu-close" onclick="toggleMenu()">X</button>
         <div id="grid-container">
             {% for tab in tabs %}
-                <div class="tab" onclick="selectTab('{{ tab.url }}')">
-                    <div class="tab-image-container">
+            <div class="tab" onclick="selectTab('{{ tab.url }}')">
+                <div class="tab-image-container">
+                    {% if tab.icon %}
                         {% if tab.icon.startswith('http') %}
                             <img src="{{ tab.icon }}" alt="{{ tab.name }}">
                         {% else %}
                             <span class="tab-icon">{{ tab.icon }}</span>
                         {% endif %}
-                    </div>
-                    <div class="tab-text-container">
-                        <span>{{ tab.name }}</span>
-                    </div>
+                    {% endif %}
                 </div>
+                <div class="tab-text-container">
+                    <span>{{ tab.name }}</span>
+                </div>
+            </div>
             {% endfor %}
         </div>
     </div>
