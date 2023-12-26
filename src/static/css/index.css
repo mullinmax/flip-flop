@@ -44,7 +44,7 @@ body {
 #grid-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 10px;
+    gap: 20px;
     width: 100%;
     max-width: 600px;
     justify-items: center;
@@ -66,16 +66,17 @@ body {
     background-color: var(--menu-bg-color);
     border-radius: var(--button-border-radius);
     transition: background-color 0.3s;
-    aspect-ratio: 1 / 1;
+    aspect-ratio: 4 / 3;
     box-shadow: var(--tab-box-shadow);
     transition: background-color 0.3s, box-shadow 0.3s;
+    padding: 5px;
 }
 
 .tab-text-container {
-    font-size: calc(20px + 1vmin);
+    font-size: calc(15px + 1vmin);
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
+    /* white-space: nowrap; */
 }
 
 .tab-image-container, .tab-icon {
@@ -84,7 +85,7 @@ body {
     display: flex; /* Use flexbox for centering */
     align-items: center; /* Center vertically */
     justify-content: center; /* Center horizontally */
-    margin-bottom: 5px;
+    /* margin-bottom: 5px; */
 }
 
 .tab img {
@@ -94,7 +95,7 @@ body {
 }
 
 .tab-icon {
-    font-size: 3em; /* Adjust the size of emoji icons */
+    font-size: 4em; /* Adjust the size of emoji icons */
     line-height: 1; /* Ensures the emoji icons are aligned properly */
 }
 
@@ -120,6 +121,23 @@ body {
 .tab.active {
     background-color: var(--tab-active-bg-color);
     font-weight: bold;
+}
+
+.menu-title {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: transparent;
+    border: none;
+    font-size: 24px;
+    color: var(--text-color);
+    font-weight: bold;
+    cursor: pointer;
+}
+.menu-title img {
+    width: 30px; /* Adjust as needed */
+    height: 30px; /* Adjust as needed */
+    margin-right: 10px;
 }
 
 #menu-toggle {
@@ -184,8 +202,9 @@ body {
     border-radius: 10px;
     margin: 10px 0;
     text-align: center;
+    margin-top: 100px;
+    margin-bottom: 100px;
 }
-
 .banner-title {
     font-size: calc(20px + 1vmin);
     font-weight: bold;

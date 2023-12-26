@@ -33,3 +33,21 @@ resetInactivityTimer();
 ['touchstart', 'mousemove', 'scroll', 'click', 'mousedown'].forEach(eventType => {
     document.addEventListener(eventType, resetInactivityTimer);
 });
+
+
+function adjustTextSize() {
+    const tabs = document.querySelectorAll('.tab-text-container span');
+
+    tabs.forEach(tab => {
+        let fontSize = 20; // Start with a max font size
+        tab.style.fontSize = fontSize + 'px';
+
+        while (tab.scrollWidth > tab.offsetWidth) {
+            fontSize--;
+            tab.style.fontSize = fontSize + 'px';
+        }
+    });
+}
+
+window.onload = adjustTextSize;
+window.onresize = adjustTextSize; // Adjust text size on window resize
