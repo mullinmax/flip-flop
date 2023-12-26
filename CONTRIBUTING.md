@@ -46,9 +46,17 @@ Making Changes and Opening a Pull Request
 
 2. Make Your Changes: Implement your feature or fix.
 
-3. Run Tests and Linting:
+3. Test out the app:
 	```bash
-    pre-commit run --all-files
+	# optionally
+	export FLIP_FLIP_DEV_MODE=True
+	export FLIP_FLOP_PORT=1234
+	python -m src.app
+	```
+
+3. Run Tests:
+	```bash
+    pytest
     ```
 
 4. Push Your Changes:

@@ -158,6 +158,7 @@ These are very roughly in order
     - [x] contibuting guide
     - [x] setup releases
     - [x] badges for tests passing, current version, etc.
+    - [x] "dev mode" to allow for easier development
 - server:
     - [x] parse docker labels
     - [x] flask-ify
@@ -174,14 +175,15 @@ These are very roughly in order
     - [x] demo and dev instances
 - front end:
     - [x] show banners/alerts (downtime annoucements)
-    - [ ] hide FAB when menu is open
-    - [ ] close menu on any click away
-    - [ ] grey-out iframe when menu is open
-    - [ ] better menu item spacing/styles
-    - [ ] if iframe fails to load log error and do not display
+    - [x] hide FAB when menu is open
+    - [x] close menu on any click away
+    - [x] grey-out iframe when menu is open
+    - [x] better menu item spacing/styles
 #### Future:
 - front end:
     - [ ] show version in side-bar
+    - [ ] tab categories
+    - [ ] if iframe fails to load log error and do not display
 - server:
     - [ ] custom themes/theme switching
     - [ ] non-docker url/icon/name additions

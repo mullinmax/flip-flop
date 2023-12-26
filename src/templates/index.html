@@ -8,22 +8,38 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
 </head>
 <body>
-    {% if banner_title %}
-    <div id="banner" class="banner">
-        <div class="banner-content">
-            <span class="banner-title">{{ banner_title }}</span>
-            {% if banner_body %}
-            <p class="banner-body">{{ banner_body }}</p>
-            {% endif %}
-        </div>
-        <button onclick="dismissBanner()">X</button>
-    </div>
-    {% endif %}
     <div id="menu-toggle" onclick="toggleMenu()">☰</div>
     <div id="tab-container">
-        <!-- Tabs will be added here dynamically -->
+        {% if banner_title %}
+            <div id="banner" class="banner">
+                <span class="banner-title">{{ banner_title }}</span>
+                {% if banner_body %}
+                    <p class="banner-body">{{ banner_body }}</p>
+                {% endif %}
+            </div>
+            {% endif %}
+        <button id="menu-close" onclick="toggleMenu()">X</button>
+        <div id="grid-container">
+            {% for tab in tabs %}
+                <div class="tab" onclick="selectTab('{{ tab.url }}')">
+                    <div class="tab-image-container">
+                        {% if tab.icon.startswith('http') %}
+                            <img src="{{ tab.icon }}" alt="{{ tab.name }}">
+                        {% else %}
+                            <span class="tab-icon">{{ tab.icon }}</span>
+                        {% endif %}
+                    </div>
+                    <div class="tab-text-container">
+                        <span>{{ tab.name }}</span>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
     </div>
     <div id="overlay"></div>
+    {% for tab in tabs %}
+        <iframe id="iframe-{{ tab.name }}" class="app-iframe" src="{{ tab.url }}" style="{% if loop.first %}display: block;{% else %}display: none;{% endif %}"></iframe>
+    {% endfor %}
     <script src="{{ url_for('static', filename='js/index.js') }}"></script>
 </body>
 </html>

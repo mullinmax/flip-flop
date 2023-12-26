@@ -14,14 +14,41 @@ default_config = {
     "FLIP_FLOP_BANNER_BODY": "this is a test",
     "FLIP_FLOP_CONFIG_PATH": "/config/flip_flop.yaml",
     "FLIP_FLOP_DOCKER_SOCKET_PATH": "/var/run/docker.sock",
+    "FLIP_FLOP_DEV_MODE": False,
+    "FLIP_FLOP_CACHE_SECONDS": 30,
+    "FLIP_FLOP_MOCK_CONTAINERS": {
+        "mock 1": {
+            "labels": {
+                "flip-flop.name": "App 1",
+                "flip-flop.url": "https://example.com/app1",
+                "flip-flop.icon": "🌐",
+            },
+        },
+        "mock 2": {
+            "labels": {
+                "flip-flop.name": "App 2",
+                "flip-flop.url": "https://example.com/app2",
+                "flip-flop.icon": "🔧",
+            },
+        },
+    },
 }
 
 
 class Config:
+    _instance = None  # Class attribute to hold the single instance
+
+    def __new__(cls, *args, **kwargs):
+        if not cls._instance:
+            cls._instance = super(Config, cls).__new__(cls)
+        return cls._instance
+
     def __init__(self):
-        self.conf = {}
-        self.config_file_path = self.get("FLIP_FLOP_CONFIG_PATH")
-        self.load_config_file()
+        if not hasattr(self, "initialized"):  # Check if instance is already initialized
+            self.initialized = True
+            self.conf = {}
+            self.config_file_path = self.get("FLIP_FLOP_CONFIG_PATH")
+            self.load_config_file()
 
     def load_config_file(self):
         if os.path.exists(self.config_file_path):
@@ -31,6 +58,12 @@ class Config:
             logging.warning(
                 "Config file not found at: {}".format(self.config_file_path)
             )
+
+    def set(self, key, value):
+        """
+        This funciton should probably only be used for tests
+        """
+        self.conf[key] = value
 
     def get(self, key):
         value = self._get(key)

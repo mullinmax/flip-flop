@@ -2,6 +2,7 @@ docker
 gunicorn
 Flask
 Flask-Testing
+Flask-Caching
 pytest
 pytest-flask
 pre-commit
