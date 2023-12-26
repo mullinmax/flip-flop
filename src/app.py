@@ -56,7 +56,7 @@ def get_docker_labels():
     containers = get_docker_containers()
     tabs = []
     for c in containers:
-        labels = containers[c]["labels"]
+        labels = containers[c].get("labels", {})
         tab = {
             "name": get_label("name", labels),
             "url": get_label("url", labels),
