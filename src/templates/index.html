@@ -42,7 +42,6 @@
             {% endfor %}
         </div>
     </div>
-    <div id="overlay"></div>
     {% for tab in tabs %}
         <iframe id="iframe-{{ tab.name }}" class="app-iframe" src="{{ tab.url }}" style="{% if loop.first %}display: block;{% else %}display: none;{% endif %}"></iframe>
     {% endfor %}
