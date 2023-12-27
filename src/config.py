@@ -29,16 +29,6 @@ default_config = {
             "flip-flop.icon": "🔧",
         },
         "mock 3": {},
-        "mock 4": {
-            "flip-flop.name": "App 1",
-            "flip-flop.url": "https://example.com/app1",
-            "flip-flop.icon": "🌐",
-        },
-        # "mock 5": {
-        #     "flip-flop.name": "App 2",
-        #     "flip-flop.url": "https://example.com/app2",
-        #     "flip-flop.icon": "🔧",
-        # },
     },
 }
 
