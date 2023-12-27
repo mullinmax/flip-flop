@@ -21,33 +21,24 @@ function selectTab(url) {
 
 function toggleMenu() {
     tabContainer.classList.toggle('close');
-    menuToggle.classList.toggle('hidden');
+    menuToggle.classList.toggle('close');
 }
 
 function resetInactivityTimer() {
     clearTimeout(inactivityTimer);
-    inactivityTimer = setTimeout(() => menuToggle.classList.add('hidden'), 3000);
+
+    // Ensure FAB is visible and iframes are interactive
+    menuToggle.classList.remove('close');
+    document.querySelectorAll('iframe').forEach(iframe => iframe.style.pointerEvents = 'auto');
+
+    // Set a timer to hide the FAB and disable interaction with iframes
+    inactivityTimer = setTimeout(() => {
+        menuToggle.classList.add('close');
+        document.querySelectorAll('iframe').forEach(iframe => iframe.style.pointerEvents = 'none');
+    }, 3000);
 }
-resetInactivityTimer();
-// Event listeners
+
+// Reset the inactivity timer on various user interactions
 ['touchstart', 'mousemove', 'scroll', 'click', 'mousedown'].forEach(eventType => {
     document.addEventListener(eventType, resetInactivityTimer);
 });
-
-
-function adjustTextSize() {
-    const tabs = document.querySelectorAll('.tab-text-container span');
-
-    tabs.forEach(tab => {
-        let fontSize = 20; // Start with a max font size
-        tab.style.fontSize = fontSize + 'px';
-
-        while (tab.scrollWidth > tab.offsetWidth) {
-            fontSize--;
-            tab.style.fontSize = fontSize + 'px';
-        }
-    });
-}
-
-window.onload = adjustTextSize;
-window.onresize = adjustTextSize; // Adjust text size on window resize
