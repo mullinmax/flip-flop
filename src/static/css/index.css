@@ -73,7 +73,7 @@ body {
 }
 
 .tab-text-container {
-    font-size: calc(15px + 1vmin);
+    font-size: calc(10px + .75vmin);
     overflow: hidden;
     text-overflow: ellipsis;
 }
@@ -180,13 +180,13 @@ body {
     margin-bottom: 100px;
 }
 .banner-title {
-    font-size: calc(20px + 1vmin);
+    font-size: calc(20px + .75vmin);
     font-weight: bold;
     margin: 25px;
 }
 
 .banner-body {
-    font-size: calc(18px + 1vmin);
+    font-size: calc(10px + .75vmin);
     margin: 15px;
 }
 
