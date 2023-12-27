@@ -183,16 +183,19 @@ These are very roughly in order
     - [x] better text scaling for app icons
 #### Future:
 - front end:
-    - [ ] show version in side-bar
+    - [ ] show version in menu
     - [ ] tab categories
     - [ ] if iframe fails to load log error and do not display
     - [ ] "full screen" button
     - [ ] custom colored banners
     - [ ] crop favicons to content for consistent sizes
     - [ ] banner overlaps with title on phone screens
-    - [ ] hide menu close button until first tab selection
+    - [ ] remove menu close button
+    - [ ] highlight currently active app
     - [ ] banner disapears after so many seconds
     - [ ] add footer/padding at the bottom of the menu
+    - [ ] title link opens in new page
+    - [ ] support for icon set in addition to emojis
 - server:
     - [ ] custom themes/theme switching
     - [ ] non-docker url/icon/name additions
