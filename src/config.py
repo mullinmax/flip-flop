@@ -19,12 +19,12 @@ default_config = {
     "FLIP_FLOP_CACHE_SECONDS": 30,
     "FLIP_FLOP_MOCK_CONTAINERS": {
         "mock 1": {
-            "flip-flop.name": "Flip-Flop Status",
+            "flip-flop.name": "App 1",
             "flip-flop.url": "https://example.com/app1",
             "flip-flop.icon": "🌐",
         },
         "mock 2": {
-            "flip-flop.name": "Flame Dashboard",
+            "flip-flop.name": "App 2",
             "flip-flop.url": "https://example.com/app2",
             "flip-flop.icon": "🔧",
         },
