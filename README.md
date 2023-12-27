@@ -186,12 +186,20 @@ These are very roughly in order
     - [ ] show version in side-bar
     - [ ] tab categories
     - [ ] if iframe fails to load log error and do not display
+    - [ ] "full screen" button
+    - [ ] custom colored banners
+    - [ ] crop favicons to content for consistent sizes
+    - [ ] banner overlaps with title on phone screens
+    - [ ] hide menu close button until first tab selection
+    - [ ] banner disapears after so many seconds
+    - [ ] add footer/padding at the bottom of the menu
 - server:
     - [ ] custom themes/theme switching
     - [ ] non-docker url/icon/name additions
-    - [ ] multiple docker socks
+    - [ ] multiple docker socks support
 - dev:
-    - [ ] automatically update main branch and demo instances on update via webhook
+    - [x] automatically update main branch and demo instances on update via webhook
     - [ ] coverage report
     - [ ] increase testing
     - [ ] type hints
+    - [ ] sponsor / support via github
