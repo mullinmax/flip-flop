@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, render_template
+from flask import Flask, render_template
 from flask_caching import Cache
 from urllib.parse import urlparse
 import docker
@@ -89,12 +89,6 @@ def index():
         banner_body=config.get("FLIP_FLOP_BANNER_BODY"),
         tabs=tabs,
     )
-
-
-@app.route("/docker-labels")
-def docker_labels():
-    labels = get_docker_labels()
-    return jsonify(labels)
 
 
 if __name__ == "__main__":

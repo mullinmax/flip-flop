@@ -1,6 +1,5 @@
 const tabContainer = document.getElementById('tab-container');
 const menuToggle = document.getElementById('menu-toggle');
-const menuCloseButton = document.getElementById('menu-close');
 let inactivityTimer;
 
 function selectTab(url) {
