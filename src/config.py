@@ -28,6 +28,10 @@ default_config = {
             "flip-flop.url": "https://example.com/app2",
             "flip-flop.icon": "🔧",
         },
+        "mock 4": {
+            "flip-flop.name": "App 2",
+            "flip-flop.url": "https://uptime.doze.dev",
+        },
         "mock 3": {},
     },
 }
