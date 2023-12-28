@@ -181,17 +181,30 @@ These are very roughly in order
     - [x] better menu item spacing/styles
     - [x] FAB hides after so many seconds of inactivity
     - [x] better text scaling for app icons
+#### 1.1:
+  - [ ] crop favicons to content for consistent sizes
+  - [ ] banner overlaps with title on phone screens
+  - [ ] non- .ico favicon formats when available
+  - [ ] remove menu close button
+  - [ ] highlight currently active app
+  - [ ] remove title link
 #### Future:
 - front end:
-    - [ ] show version in side-bar
+    - [ ] show version in menu
     - [ ] tab categories
     - [ ] if iframe fails to load log error and do not display
+    - [ ] "full screen" button
+    - [ ] custom colored banners
+    - [ ] banner disapears after app is selected
+    - [ ] add footer/padding at the bottom of the menu
+    - [ ] support for icon set in addition to emojis
 - server:
     - [ ] custom themes/theme switching
     - [ ] non-docker url/icon/name additions
-    - [ ] multiple docker socks
+    - [ ] multiple docker socks support
 - dev:
-    - [ ] automatically update main branch and demo instances on update via webhook
+    - [x] automatically update main branch and demo instances on update via webhook
     - [ ] coverage report
     - [ ] increase testing
     - [ ] type hints
+    - [ ] sponsor / support via github
