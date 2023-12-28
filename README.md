@@ -181,6 +181,13 @@ These are very roughly in order
     - [x] better menu item spacing/styles
     - [x] FAB hides after so many seconds of inactivity
     - [x] better text scaling for app icons
+#### 1.1:
+  - [ ] crop favicons to content for consistent sizes
+  - [ ] banner overlaps with title on phone screens
+  - [ ] non- .ico favicon formats when available
+  - [ ] remove menu close button
+  - [ ] highlight currently active app
+  - [ ] remove title link
 #### Future:
 - front end:
     - [ ] show version in menu
@@ -188,13 +195,8 @@ These are very roughly in order
     - [ ] if iframe fails to load log error and do not display
     - [ ] "full screen" button
     - [ ] custom colored banners
-    - [ ] crop favicons to content for consistent sizes
-    - [ ] banner overlaps with title on phone screens
-    - [ ] remove menu close button
-    - [ ] highlight currently active app
-    - [ ] banner disapears after so many seconds
+    - [ ] banner disapears after app is selected
     - [ ] add footer/padding at the bottom of the menu
-    - [ ] title link opens in new page
     - [ ] support for icon set in addition to emojis
 - server:
     - [ ] custom themes/theme switching
