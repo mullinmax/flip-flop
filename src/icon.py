@@ -170,7 +170,11 @@ def crop_to_square_and_save(app, image: Image.Image) -> str:
     image_bytes = image_bytes.getvalue()
     md5_hash = hashlib.md5(image_bytes).hexdigest()
     filename = f"{md5_hash}.png"
-    save_path = os.path.join("src/static/img/generated/", filename)
+    save_dir = "src/static/img/generated/"
+    if not os.path.exists(save_dir):
+        os.makedirs(save_dir)
+
+    save_path = os.path.join(save_dir, filename)
 
     with open(save_path, "wb") as f:
         f.write(image_bytes)
