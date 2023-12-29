@@ -9,3 +9,4 @@ pre-commit
 pyyaml
 Pillow
 pilmoji
+beautifulsoup4

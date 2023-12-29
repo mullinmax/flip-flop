@@ -1,16 +1,10 @@
-from PIL import Image, ImageFont
-import requests
-from io import BytesIO
-from pilmoji import Pilmoji
-import os
-import hashlib
 from flask import Flask, render_template
 from flask_caching import Cache
-from urllib.parse import urlparse
 import docker
 import logging
 
 from src.config import config
+from src.icon import get_icon
 
 flask_config = {
     "CACHE_TYPE": "SimpleCache",
@@ -22,64 +16,6 @@ app.config.from_mapping(flask_config)
 cache = Cache(app)
 
 logging.basicConfig(level=logging.INFO)
-
-# TODO crop to content
-# TODO break out cropping/saving/hashing to seperate function/file
-# TODO make render size configurable
-# TODO get favicon getter check svg and other formats
-
-
-def save_url_as_image(url):
-    favicon_url = get_favicon_url(url)
-    response = requests.get(favicon_url)
-    if response.status_code == 200:
-        image_content = response.content
-        md5_hash = hashlib.md5(image_content).hexdigest()
-        filename = f"{md5_hash}.png"
-        image_path = os.path.join("./src/static/img/", filename)
-
-        if not os.path.exists(image_path):
-            image = Image.open(BytesIO(image_content))
-            image.save(image_path)
-
-        return filename
-    return None
-
-
-def save_emoji_as_image(emoji):
-    base_image_size = 300  # Size of the base image
-    font_size = 300  # Larger font size for a larger emoji
-
-    # Create a base image with a white background
-    with Image.new(
-        "RGBA", (base_image_size, base_image_size), (255, 255, 255, 0)
-    ) as image:
-        font = ImageFont.truetype("./src/Roboto-Regular.ttf", font_size)
-
-        with Pilmoji(image) as pilmoji:
-            # Calculate the position to center the text (and emoji) in the image
-            text_width, text_height = pilmoji.getsize(emoji, font=font)
-            text_x = int((image.width - text_width) / 2)
-            text_y = int((image.height - text_height) / 2)
-            pilmoji.text((text_x, text_y), emoji, (0, 0, 0), font)
-
-        # Save the image
-        image_bytes = BytesIO()
-        image.save(image_bytes, format="PNG")
-        image_bytes = image_bytes.getvalue()
-        md5_hash = hashlib.md5(image_bytes).hexdigest()
-        filename = f"{md5_hash}.png"
-        image_path = os.path.join("src/static/img/", filename)
-
-        if not os.path.exists(image_path):
-            image.save(image_path)
-
-        return filename
-
-
-def get_favicon_url(url):
-    parsed_url = urlparse(url)
-    return f"{parsed_url.scheme}://{parsed_url.netloc}/favicon.ico"
 
 
 def get_docker_containers():
@@ -124,10 +60,7 @@ def get_docker_labels():
                 "priority": get_label("priority", labels, instance),
             }
 
-            if tab["icon"] == "":
-                tab["icon"] = save_url_as_image(tab["url"])
-            else:
-                tab["icon"] = save_emoji_as_image(tab["icon"])
+            tab["icon"] = get_icon(app, tab)
 
             tabs.append(tab)
             app.logger.info(f"Added container {container}: {tab}")

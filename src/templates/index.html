@@ -26,7 +26,7 @@
             {% for tab in tabs %}
             <div class="tab" onclick="selectTab('{{ tab.url }}')">
                 <div class="tab-image-container">
-                    <img src="{{ url_for('static', filename='img/' + tab.icon) }}" alt="{{ tab.name }}">
+                    <img src="{{ url_for('static', filename='img/generated/' + tab.icon) }}" alt="{{ tab.name }}">
                 </div>
                 <div class="tab-text-container">
                     <span>{{ tab.name }}</span>
