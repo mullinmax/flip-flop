@@ -18,6 +18,7 @@ Setting Up the Development Environment
 3. Install Dependencies:
     ```bash
 	pip install -r requirements.txt
+	apt install libcairo2
     ```
 
 Setting Up Pre-commit

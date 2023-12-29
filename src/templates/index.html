@@ -21,19 +21,12 @@
                     <p class="banner-body">{{ banner_body }}</p>
                 {% endif %}
             </div>
-            {% endif %}
-        <button id="menu-close" onclick="toggleMenu()">X</button>
+        {% endif %}
         <div id="grid-container">
             {% for tab in tabs %}
             <div class="tab" onclick="selectTab('{{ tab.url }}')">
                 <div class="tab-image-container">
-                    {% if tab.icon %}
-                        {% if tab.icon.startswith('http') %}
-                            <img src="{{ tab.icon }}" alt="{{ tab.name }}">
-                        {% else %}
-                            <span class="tab-icon">{{ tab.icon }}</span>
-                        {% endif %}
-                    {% endif %}
+                    <img src="{{ url_for('static', filename='img/generated/' + tab.icon) }}" alt="{{ tab.name }}">
                 </div>
                 <div class="tab-text-container">
                     <span>{{ tab.name }}</span>

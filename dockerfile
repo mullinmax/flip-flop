@@ -1,6 +1,9 @@
 # Use a slim version of Python 3.11 as the base image
 FROM python:3.11-slim
 
+# Install Cairo
+RUN apt-get update && apt-get install -y libcairo2
+
 # Set the working directory inside the container to /app
 WORKDIR /app
 

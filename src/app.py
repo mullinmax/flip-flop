@@ -1,10 +1,10 @@
-from flask import Flask, jsonify, render_template
+from flask import Flask, render_template
 from flask_caching import Cache
-from urllib.parse import urlparse
 import docker
 import logging
 
 from src.config import config
+from src.icon import get_icon
 
 flask_config = {
     "CACHE_TYPE": "SimpleCache",
@@ -16,11 +16,6 @@ app.config.from_mapping(flask_config)
 cache = Cache(app)
 
 logging.basicConfig(level=logging.INFO)
-
-
-def get_favicon_url(url):
-    parsed_url = urlparse(url)
-    return f"{parsed_url.scheme}://{parsed_url.netloc}/favicon.ico"
 
 
 def get_docker_containers():
@@ -65,8 +60,7 @@ def get_docker_labels():
                 "priority": get_label("priority", labels, instance),
             }
 
-            if tab["icon"] == "":
-                tab["icon"] = get_favicon_url(tab["url"])
+            tab["icon"] = get_icon(app, tab)
 
             tabs.append(tab)
             app.logger.info(f"Added container {container}: {tab}")
@@ -89,12 +83,6 @@ def index():
         banner_body=config.get("FLIP_FLOP_BANNER_BODY"),
         tabs=tabs,
     )
-
-
-@app.route("/docker-labels")
-def docker_labels():
-    labels = get_docker_labels()
-    return jsonify(labels)
 
 
 if __name__ == "__main__":

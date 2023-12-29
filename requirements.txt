@@ -7,3 +7,7 @@ pytest
 pytest-flask
 pre-commit
 pyyaml
+Pillow
+pilmoji
+beautifulsoup4
+cairosvg
