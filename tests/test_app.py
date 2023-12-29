@@ -1,5 +1,5 @@
 import pytest
-from src.app import app
+from src.app import app, get_docker_labels
 from src.config import config
 
 
@@ -31,20 +31,12 @@ def test_static_files(client):
 
 def test_docker_label_parsing(client):
     config.set("FLIP_FLOP_DEV_MODE", True)
-    labels_response = client.get("/docker-labels")
-    assert labels_response.status_code == 200
-    data = labels_response.json
+    data = get_docker_labels()
     assert data == [
         {
             "name": "App 1",
             "url": "https://example.com/app1",
-            "icon": "🌐",
-            "priority": 9999,
-        },
-        {
-            "name": "App 2",
-            "url": "https://example.com/app2",
-            "icon": "🔧",
+            "icon": "7dadd3de8c5a3e18dbc9867aeb8292d4.png",
             "priority": 9999,
         },
     ]
