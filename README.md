@@ -182,10 +182,10 @@ These are very roughly in order
     - [x] FAB hides after so many seconds of inactivity
     - [x] better text scaling for app icons
 #### 1.1:
-  - [ ] crop favicons to content for consistent sizes
+  - [x] crop favicons to content for consistent sizes
+  - [x] non- .ico favicon formats when available
+  - [x] remove menu close button
   - [ ] banner overlaps with title on phone screens
-  - [ ] non- .ico favicon formats when available
-  - [ ] remove menu close button
   - [ ] highlight currently active app
   - [ ] remove title link
 #### Future:
