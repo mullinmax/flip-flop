@@ -141,7 +141,7 @@ Flip-Flop uses iframes in order to allow users to switch between apps without le
 Flip-Flop does it's best to automatically grab the best favicon from each app to use as the icon in the menu. Some common causes for it not correctly grabbing the favicon are:
 - The app url gets redirected (flip-flop does not currently follow redirects). For example If you host Navidrome at `https://music.domain.com` it will automatically redirect to `https://music.domain.com/app/`. You will need to set the flip flop URL to this second url for the favicon to work.
 - The app has basic http authentication enabled. In order for the favicon to be retreived Flip-Flop would need to log into the app. As a rule Flip-Flop is not designed to handle security critical things like passwords so it does not support this.
-
+- leaving off the `https://` or `http://` from the url.
 
 ## Contributing
 
@@ -195,6 +195,7 @@ These are very roughly in order
   - [x] remove menu close button
   - [ ] banner overlaps with title on phone screens
   - [ ] highlight currently active app
+  - [ ] enforce same-size icons
   - [ ] remove title link
 #### Future:
 - front end:

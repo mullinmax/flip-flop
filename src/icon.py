@@ -35,25 +35,25 @@ def generate_emoji_image(app, tab) -> str:
 
 def find_favicons_in_html(html_content, base_url):
     soup = BeautifulSoup(html_content, "html.parser")
-    # not including these since they seem to have backgrounds
-    # "apple-touch-icon", "apple-touch-icon-precomposed"
-    rel_types = ["shortcut icon", "icon"]
+    rel_types = ["shortcut icon", "icon"]  # Add "xyz" or any other types you need
+
     found_favicons = set()
 
-    # Find favicons specified in HTML
+    # Find favicons specified in HTML for each rel type
     for rel_type in rel_types:
-        link_tag = soup.find("link", rel=rel_type)
-        if link_tag and link_tag.get("href"):
-            href = link_tag.get("href")
-            # Complete the URL if it's relative
-            if not href.startswith("http"):
-                href = requests.compat.urljoin(base_url, href)
-            found_favicons.add(href)
+        link_tags = soup.find_all("link", rel=rel_type)  # Use find_all instead of find
+        for link_tag in link_tags:
+            if link_tag.get("href"):
+                href = link_tag.get("href")
+                # Complete the URL if it's relative
+                if not href.startswith("http"):
+                    href = requests.compat.urljoin(base_url, href)
+                found_favicons.add(href)
 
     # Add the default favicon.ico
     default_favicon = requests.compat.urljoin(base_url, "/favicon.ico")
     found_favicons.add(default_favicon)
-
+    print(found_favicons)
     return list(found_favicons)
 
 
