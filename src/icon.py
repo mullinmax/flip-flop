@@ -98,13 +98,10 @@ def generate_favicon_image(app, tab):
         # Find all possible favicon locations
         favicon_urls = find_favicons_in_html(html_content, url)
 
-        # Log the first 100 characters of each location
-        for favicon_url in favicon_urls:
-            print(f"Favicon URL: {favicon_url[:100]}")
-
         # Attempt to grab each favicon
         images = []
         for favicon_url in favicon_urls:
+            print(f"Favicon URL: {favicon_url[:100]}")
             image = create_image_from_url(favicon_url, base_url=url)
             if image:
                 app.logger.info(f"downloaded {favicon_url} size: {image.size}")

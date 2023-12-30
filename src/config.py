@@ -23,6 +23,12 @@ default_config = {
             "flip-flop.url": "https://example.com/app1",
             "flip-flop.icon": "🌐",
         },
+        "mock 2": {
+            "flip-flop.name": "App 2",
+            "flip-flop.url": "https://example.com/app2",
+            "flip-flop.icon": "🔧",
+            "flip-flop.priority": "2",
+        },
         "mock 3": {},
     },
 }
