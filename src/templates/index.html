@@ -9,8 +9,8 @@
 </head>
 <body>
     <div id="menu-toggle" onclick="toggleMenu()">☰</div>
-    <div id="tab-container">
-        <div class="menu-title" onclick="location.href='{{ host }}'">
+    <div id="menu">
+        <div class="menu-title">
             <img src="{{ url_for('static', filename='img/flip_flop_favicon.png') }}" alt="App Favicon">
             <span>{{ name }}</span>
         </div>
@@ -22,22 +22,24 @@
                 {% endif %}
             </div>
         {% endif %}
-        <div id="grid-container">
+        <div class="app-container">
             {% for tab in tabs %}
-            <div class="tab" onclick="selectTab('{{ tab.url }}')">
-                <div class="tab-image-container">
-                    <img src="{{ url_for('static', filename='img/generated/' + tab.icon) }}" alt="{{ tab.name }}">
+                <div class="tab" onclick="selectTab('{{ tab.url }}')">
+                    <div class="tab-image-container">
+                        <img src="{{ url_for('static', filename='img/generated/' + tab.icon) }}" alt="{{ tab.name }}">
+                    </div>
+                    <div class="tab-text-container">
+                        <span>{{ tab.name }}</span>
+                    </div>
                 </div>
-                <div class="tab-text-container">
-                    <span>{{ tab.name }}</span>
-                </div>
-            </div>
             {% endfor %}
         </div>
     </div>
+
     {% for tab in tabs %}
-        <iframe id="iframe-{{ tab.name }}" class="app-iframe" src="{{ tab.url }}" style="{% if loop.first %}display: block;{% else %}display: none;{% endif %}"></iframe>
+        <iframe id="iframe-{{ tab.name }}" class="app-iframe full-grid" src="{{ tab.url }}"></iframe>
     {% endfor %}
+
     <script src="{{ url_for('static', filename='js/index.js') }}"></script>
 </body>
 </html>

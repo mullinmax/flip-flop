@@ -1,6 +1,7 @@
 :root {
     --background-color: black;
     --menu-bg-color: #333;
+    --app-bg-color: #555;
     --tab-hover-bg-color: #555;
     --tab-active-bg-color: #777;
     --banner-bg-color: #124fa5;
@@ -16,39 +17,76 @@ body {
     margin: 0;
     padding: 0;
     background-color: var(--background-color);
-    overflow: hidden;
-}
-
-#tab-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: var(--menu-bg-color);
-    z-index: 100;
-    overflow-y: auto;
-    transform: translateX(0);
-    transition: transform 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}
-
-#tab-container.close {
-    transform: translateX(100%);
-}
-
-#grid-container {
+    overflow: auto;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+}
+
+#menu {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    /* bleed for screen extending when scrolling on mobile */
+    bottom: -200px;
+    padding-bottom: 200px;
+    display: grid;
+    grid-template-rows: auto auto 1fr;
     gap: 20px;
-    width: 100%;
-    max-width: 600px;
-    justify-items: center;
-    align-items: start;
+    padding: 20px;
+    padding-bottom: 200px;
+    background-color: var(--menu-bg-color);
+    transition: transform .3s ease;
+    z-index: 3;
+    overflow-y: auto;
+
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+
+#menu.close {
+    transform: translateX(100%)
+}
+
+.menu-title {
+    display: flex;
+    align-items: center;
+    font-size: 24px;
+    color: var(--text-color);
+    font-weight: bold;
+}
+
+.menu-title img {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
+
+.banner {
+    grid-column: 1 / -1;
+    background-color: var(--banner-bg-color);
+    color: var(--text-color);
+    padding: 10px 20px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    margin: 10px 0;
+    text-align: center;
+    justify-self: center;
+}
+
+.banner-title {
+    font-size: calc(20px + .75vmin);
+    font-weight: bold;
+    margin: 25px;
+}
+
+.banner-body {
+    font-size: calc(10px + .75vmin);
+    margin: 15px;
 }
 
 .tab {
@@ -57,25 +95,30 @@ body {
     align-items: center;
     justify-content: space-around;
     width: 100%;
-    height: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    height: auto;
     text-align: center;
     color: var(--text-color);
     border: none;
     outline: none;
     cursor: pointer;
-    background-color: var(--menu-bg-color);
+    background-color: var(--app-bg-color);
     border-radius: var(--button-border-radius);
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, box-shadow 0.3s;
     aspect-ratio: 4 / 3;
     box-shadow: var(--tab-box-shadow);
-    transition: background-color 0.3s, box-shadow 0.3s;
-    padding: 5px;
+    overflow: hidden;
 }
 
-.tab-text-container {
-    font-size: calc(10px + .75vmin);
-    overflow: hidden;
-    text-overflow: ellipsis;
+.tab:hover {
+    background-color: var(--tab-hover-bg-color);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.75);
+}
+
+.tab.active {
+    background-color: var(--tab-active-bg-color);
+    font-weight: bold;
 }
 
 .tab-image-container, .tab-icon {
@@ -92,43 +135,50 @@ body {
     object-fit: contain;
 }
 
-.tab-icon {
-    font-size: 4em;
-    line-height: 1;
+.tab-text-container {
+    font-size: calc(10px + .75vmin);
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-.tab:hover {
-    background-color: var(--tab-hover-bg-color);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.75);
-}
 
-.tab.active {
-    background-color: var(--tab-active-bg-color);
-    font-weight: bold;
-}
-
-.menu-title {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    background-color: transparent;
-    border: none;
-    font-size: 24px;
+/* Button Styles */
+.button {
+    background-color: var(--button-bg-color);
     color: var(--text-color);
-    font-weight: bold;
+    border: none;
+    padding: 10px 20px;
+    border-radius: var(--button-border-radius);
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
     cursor: pointer;
-}
-.menu-title img {
-    width: 30px;
-    height: 30px;
-    margin-right: 10px;
+    transition: background-color 0.3s;
 }
 
+.button:hover {
+    background-color: var(--button-hover-bg-color);
+}
+
+/* Iframe Styles */
+.app-iframe {
+    grid-area: 1 / 1 / -1 / -1;
+    width: 100%;
+    height: 100%;
+    place-self: stretch stretch;
+    height: 100vh;
+    z-index: 0;
+    border: none;
+}
+
+/* Menu Toggle Button */
 #menu-toggle {
     position: fixed;
-    bottom: 20px;
+    top: 20px;
     right: 20px;
-    z-index: 90;
+    z-index: 1000;
     cursor: pointer;
     background-color: var(--button-bg-color);
     color: var(--text-color);
@@ -140,58 +190,29 @@ body {
     justify-content: center;
     font-size: 24px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-    transition: right 0.75s ease, background-color 0.3s;
+    transition: right 0.3s ease;
+    z-index: 1;
+}
+
+#menu-toggle.close {
+    right: -70px;
 }
 
 #menu-toggle:hover {
     background-color: var(--button-hover-bg-color);
 }
 
-#menu-toggle.close {
-    right: -60px;
+.app-container {
+    place-self: center;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: auto;
+    gap: 10px;
+    padding: 10px;
 }
 
-#menu-close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background-color: transparent;
-    border: none;
-    color: var(--text-color);
-    font-size: 24px;
-    cursor: pointer;
-    border-radius: var(--button-border-radius);
-}
-
-#menu-close:hover {
-    background-color: var(--tab-hover-bg-color);
-}
-
-.banner {
-    grid-column: 1 / -1;
-    background-color: var(--banner-bg-color);
-    color: var(--text-color);
-    padding: 10px 20px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    border-radius: 10px;
-    margin: 10px 0;
-    text-align: center;
-    margin-top: 100px;
-    margin-bottom: 100px;
-}
-.banner-title {
-    font-size: calc(20px + .75vmin);
-    font-weight: bold;
-    margin: 25px;
-}
-
-.banner-body {
-    font-size: calc(10px + .75vmin);
-    margin: 15px;
-}
-
-.app-iframe{
-    border: 0px;
-    width: 100vw;
-    height: 100vh;
+@media (min-width: 1000px) {
+    .app-container {
+        max-width: 800px;
+    }
 }

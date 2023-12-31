@@ -135,6 +135,14 @@ volumes:
 
 Flip-Flop uses iframes in order to allow users to switch between apps without leaving the central page. For good reason, many web applications disable being put into iframes. This prevents [Click jacking](https://en.wikipedia.org/wiki/Clickjacking). The example above includes labels you can use when using traefik as a reverse proxy to allow your app to be put into an iframe. Carefully consider how this impacts your security of yourself and your users. **Use at your own risk**. Thankfully many apps do not have this constraint so you don't have to do this often.
 
+#### Automatic Favicon/Icon not working
+
+
+Flip-Flop does it's best to automatically grab the best favicon from each app to use as the icon in the menu. Some common causes for it not correctly grabbing the favicon are:
+- The app url gets redirected (flip-flop does not currently follow redirects). For example If you host Navidrome at `https://music.domain.com` it will automatically redirect to `https://music.domain.com/app/`. You will need to set the flip flop URL to this second url for the favicon to work.
+- The app has basic http authentication enabled. In order for the favicon to be retreived Flip-Flop would need to log into the app. As a rule Flip-Flop is not designed to handle security critical things like passwords so it does not support this.
+- leaving off the `https://` or `http://` from the url.
+
 ## Contributing
 
 Contributions are welcome. Please feel free to submit pull requests or open issues for improvements and bug fixes. This project is being actively developed and I would love to adapt this to something that's as useful to as many people as possible. I would especially love some help refining the CSS styles and adding some great themes.
@@ -185,6 +193,8 @@ These are very roughly in order
   - [x] crop favicons to content for consistent sizes
   - [x] non- .ico favicon formats when available
   - [x] remove menu close button
+  - [ ] enforce same-size icons
+  - [ ] pre-load content for fast load times
   - [ ] banner overlaps with title on phone screens
   - [ ] highlight currently active app
   - [ ] remove title link
@@ -198,6 +208,7 @@ These are very roughly in order
     - [ ] banner disapears after app is selected
     - [ ] add footer/padding at the bottom of the menu
     - [ ] support for icon set in addition to emojis
+    - [ ] repo link in footer
 - server:
     - [ ] custom themes/theme switching
     - [ ] non-docker url/icon/name additions
