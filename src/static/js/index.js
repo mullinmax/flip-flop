@@ -1,4 +1,4 @@
-const tabContainer = document.getElementById('tab-container');
+const menu = document.getElementById('menu');
 const menuToggle = document.getElementById('menu-toggle');
 let inactivityTimer;
 
@@ -15,11 +15,11 @@ function selectTab(url) {
     }
 
     // Close the menu
-    tabContainer.classList.add('close');
+    menu.classList.add('close');
 }
 
 function toggleMenu() {
-    tabContainer.classList.toggle('close');
+    menu.classList.toggle('close');
     menuToggle.classList.toggle('close');
 }
 

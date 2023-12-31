@@ -193,9 +193,10 @@ These are very roughly in order
   - [x] crop favicons to content for consistent sizes
   - [x] non- .ico favicon formats when available
   - [x] remove menu close button
+  - [ ] enforce same-size icons
+  - [ ] pre-load content for fast load times
   - [ ] banner overlaps with title on phone screens
   - [ ] highlight currently active app
-  - [ ] enforce same-size icons
   - [ ] remove title link
 #### Future:
 - front end:
@@ -207,6 +208,7 @@ These are very roughly in order
     - [ ] banner disapears after app is selected
     - [ ] add footer/padding at the bottom of the menu
     - [ ] support for icon set in addition to emojis
+    - [ ] repo link in footer
 - server:
     - [ ] custom themes/theme switching
     - [ ] non-docker url/icon/name additions
