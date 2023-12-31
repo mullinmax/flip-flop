@@ -35,7 +35,8 @@ def generate_emoji_image(app, tab) -> str:
 
 def find_favicons_in_html(html_content, base_url):
     soup = BeautifulSoup(html_content, "html.parser")
-    rel_types = ["shortcut icon", "icon"]  # Add "xyz" or any other types you need
+    rel_types = ["shortcut icon", "icon"]
+    # TODO add apple-touch-icon with transparency detection
 
     found_favicons = set()
 

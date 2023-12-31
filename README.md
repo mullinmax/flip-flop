@@ -193,11 +193,11 @@ These are very roughly in order
   - [x] crop favicons to content for consistent sizes
   - [x] non- .ico favicon formats when available
   - [x] remove menu close button
-  - [ ] enforce same-size icons
+  - [x] enforce same-size icons
   - [ ] pre-load content for fast load times
-  - [ ] banner overlaps with title on phone screens
+  - [x] banner overlaps with title on phone screens
   - [ ] highlight currently active app
-  - [ ] remove title link
+  - [x] remove title link
 #### Future:
 - front end:
     - [ ] show version in menu
