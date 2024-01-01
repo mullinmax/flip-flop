@@ -3,7 +3,7 @@
     --menu-bg-color: #333;
     --app-bg-color: #555;
     --tab-hover-bg-color: #555;
-    --tab-active-bg-color: #777;
+    --tab-active-bg-color: #666;
     --banner-bg-color: #124fa5;
     --button-bg-color: #007bff;
     --button-hover-bg-color: #0056b3;
@@ -113,13 +113,10 @@ body {
 }
 
 .tab:hover {
-    background-color: var(--tab-hover-bg-color);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.75);
-}
-
-.tab.active {
-    background-color: var(--tab-active-bg-color);
-    font-weight: bold;
+    transform: scale(1.05); /* Slightly scale up the tab */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6); /* More pronounced shadow for a lifting effect */
+    background-color: var(--tab-hover-bg-color); /* Keep the existing hover background color */
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease; /* Smooth transition for the effects */
 }
 
 .tab-image-container, .tab-icon {
@@ -142,6 +139,10 @@ body {
     text-overflow: ellipsis;
 }
 
+.tab.selected {
+    box-shadow: 0 0 10px 2px #007bff;
+    /* background-color: var(--tab-active-bg-color);  */
+}
 
 /* Button Styles */
 .button {

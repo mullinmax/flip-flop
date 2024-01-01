@@ -197,7 +197,7 @@ These are very roughly in order
   - [x] pre-load content for fast load times
   - [x] background process to periodically refresh icons
   - [x] banner overlaps with title on phone screens
-  - [ ] highlight currently active app
+  - [x] highlight last active app
   - [x] remove title link
   - [x] make menu button look like app drawer
 #### Future:
