@@ -13,7 +13,6 @@ from src.docker import get_docker_labels
 flask_config = {
     "CACHE_TYPE": "SimpleCache",
     "CACHE_DEFAULT_TIMEOUT": config.get("FLIP_FLOP_CACHE_SECONDS"),
-    "SERVER_NAME": config.get("FLIP_FLOP_HOST"),
 }
 
 app = Flask(__name__)
