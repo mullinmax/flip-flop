@@ -8,11 +8,45 @@ import hashlib
 import cairosvg
 import base64
 
+# Paths and saving
+
+
+def get_hash_filename(identifier: str) -> str:
+    md5_hash = hashlib.md5(identifier.encode("utf-8")).hexdigest()
+    return f"{md5_hash}.png"
+
+
+def img_exists(filename):
+    path = os.path.join("src/static/img/generated", filename)
+    if os.path.exists(path):
+        return True
+    return False
+
+
+def save_img(img, filename):
+    image_bytes = BytesIO()
+    img.save(image_bytes, format="PNG")
+    image_bytes = image_bytes.getvalue()
+
+    path = os.path.join("src/static/img/generated", filename)
+
+    if not os.path.exists(os.path.dirname(path)):
+        os.makedirs(os.path.dirname(path))
+
+    with open(path, "wb") as f:
+        f.write(image_bytes)
+
+
 # Emoji support
 
 
-def generate_emoji_image(app, tab) -> str:
+def generate_emoji_image(app, tab, force=False) -> str:
     emoji = tab["icon"]
+
+    file_name = get_hash_filename(emoji)
+    if img_exists(file_name) and not force:
+        return file_name
+
     base_image_size = 300  # Size of the base image
     font_size = 300  # Larger font size for a larger emoji
 
@@ -27,7 +61,9 @@ def generate_emoji_image(app, tab) -> str:
             text_y = int((image.height - text_height) / 2)
             pilmoji.text((text_x, text_y), emoji, (0, 0, 0), font)
         app.logger.info(f"generated emoji image for {tab}")
-        return image
+        img = crop_to_content(app, image)
+        save_img(img, file_name)
+        return file_name
 
 
 # Favicon support
@@ -42,7 +78,7 @@ def find_favicons_in_html(html_content, base_url):
 
     # Find favicons specified in HTML for each rel type
     for rel_type in rel_types:
-        link_tags = soup.find_all("link", rel=rel_type)  # Use find_all instead of find
+        link_tags = soup.find_all("link", rel=rel_type)
         for link_tag in link_tags:
             if link_tag.get("href"):
                 href = link_tag.get("href")
@@ -86,11 +122,16 @@ def create_image_from_url(favicon_url, base_url=None):
                 return Image.open(BytesIO(favicon_response.content))
     except Exception as e:
         print(f"An error occurred while creating image: {e}")
-        return None
+        return ""
 
 
-def generate_favicon_image(app, tab):
+def generate_favicon_image(app, tab, force=False):
     url = tab["url"]
+
+    file_name = get_hash_filename(url)
+    if img_exists(file_name) and not force:
+        return file_name
+
     try:
         # Fetch the HTML content from the URL
         response = requests.get(url)
@@ -119,27 +160,17 @@ def generate_favicon_image(app, tab):
         for img in images:
             app.logger.info(img.size)
 
-        return images[0]
+        img = crop_to_content(app, images[0])
+        save_img(img, file_name)
+        return file_name
     except Exception as e:
         app.logger.info(f"An error occurred: {e}")
 
 
-# Generic support
+# Image editing
 
 
-def get_icon(app, tab) -> str:
-    try:
-        if tab["icon"] is not None and len(tab["icon"]) > 0:
-            img = generate_emoji_image(app, tab)
-        else:
-            img = generate_favicon_image(app, tab)
-        return crop_to_square_and_save(app, img)
-    except Exception as e:
-        app.logger.error(f"Failed to generate icon image for {tab}: {e}")
-        return ""
-
-
-def crop_to_square_and_save(app, image: Image.Image) -> str:
+def crop_to_content(app, image: Image.Image) -> str:
     # Get the bounding box
     bbox = image.getbbox()
 
@@ -162,19 +193,18 @@ def crop_to_square_and_save(app, image: Image.Image) -> str:
     # Crop the image with the adjusted bounding box
     cropped_img = image.crop(square_bbox)
 
-    # Save the image
-    image_bytes = BytesIO()
-    cropped_img.save(image_bytes, format="PNG")
-    image_bytes = image_bytes.getvalue()
-    md5_hash = hashlib.md5(image_bytes).hexdigest()
-    filename = f"{md5_hash}.png"
-    save_dir = "src/static/img/generated/"
-    if not os.path.exists(save_dir):
-        os.makedirs(save_dir)
+    return cropped_img
 
-    save_path = os.path.join(save_dir, filename)
 
-    with open(save_path, "wb") as f:
-        f.write(image_bytes)
+# Generic support
 
-    return filename
+
+def get_icon(app, tab) -> str:
+    try:
+        if tab["icon"] is not None and len(tab["icon"]) > 0:
+            return generate_emoji_image(app, tab)
+        else:
+            return generate_favicon_image(app, tab)
+    except Exception as e:
+        app.logger.error(f"Failed to generate icon image for {tab}: {e}")
+        return ""

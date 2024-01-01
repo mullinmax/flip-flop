@@ -209,11 +209,17 @@ These are very roughly in order
     - [ ] banner disapears after app is selected
     - [ ] add footer/padding at the bottom of the menu
     - [ ] support for icon set in addition to emojis
+    - [ ] split screen apps
+    - [ ] Locally Saved Or Server Configured Layouts Of Split Screen Apps
     - [ ] repo link in footer
 - server:
+    - [ ] transparency detection for favicon creation
     - [ ] custom themes/theme switching
     - [ ] non-docker url/icon/name additions
     - [ ] multiple docker socks support
+    - [ ] minifier
+    - [ ] bake-in images
+    - [ ] multi-Emoji Icons Text Wrap So They Fit In Square Image
 - dev:
     - [x] automatically update main branch and demo instances on update via webhook
     - [ ] coverage report
