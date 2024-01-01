@@ -40,7 +40,7 @@ def save_img(img, filename):
 # Emoji support
 
 
-def generate_emoji_image(app, tab, force=False) -> str:
+def generate_emoji_image(app, tab) -> str:
     emoji = tab["icon"]
     file_name = get_hash_filename(emoji)
 
@@ -122,7 +122,7 @@ def create_image_from_url(favicon_url, base_url=None):
         return ""
 
 
-def generate_favicon_image(app, tab, force=False):
+def generate_favicon_image(app, tab):
     url = tab["url"]
     file_name = get_hash_filename(url)
 
