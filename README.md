@@ -194,11 +194,12 @@ These are very roughly in order
   - [x] non- .ico favicon formats when available
   - [x] remove menu close button
   - [x] enforce same-size icons
-  - [ ] pre-load content for fast load times
+  - [x] pre-load content for fast load times
+  - [x] background process to periodically refresh icons
   - [x] banner overlaps with title on phone screens
-  - [ ] highlight currently active app
+  - [x] highlight last active app
   - [x] remove title link
-  - [ ] make menu button look like app drawer
+  - [x] make menu button look like app drawer
 #### Future:
 - front end:
     - [ ] show version in menu
@@ -209,11 +210,19 @@ These are very roughly in order
     - [ ] banner disapears after app is selected
     - [ ] add footer/padding at the bottom of the menu
     - [ ] support for icon set in addition to emojis
+    - [ ] split screen apps
+    - [ ] Locally Saved Or Server Configured Layouts Of Split Screen Apps
     - [ ] repo link in footer
+    - [ ] PWA support
 - server:
+    - [ ] reduce size of favicon image (automated resizing?)
+    - [ ] transparency detection for favicon creation
     - [ ] custom themes/theme switching
     - [ ] non-docker url/icon/name additions
     - [ ] multiple docker socks support
+    - [ ] minifier
+    - [ ] bake-in images to html
+    - [ ] multi-Emoji Icons Text Wrap So They Fit In Square Image
 - dev:
     - [x] automatically update main branch and demo instances on update via webhook
     - [ ] coverage report

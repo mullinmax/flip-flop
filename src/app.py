@@ -1,10 +1,14 @@
 from flask import Flask, render_template
-from flask_caching import Cache
-import docker
 import logging
+import threading
+import time
+import os
+import rcssmin
+import rjsmin
+import base64
 
 from src.config import config
-from src.icon import get_icon
+from src.docker import get_docker_labels
 
 flask_config = {
     "CACHE_TYPE": "SimpleCache",
@@ -13,78 +17,101 @@ flask_config = {
 
 app = Flask(__name__)
 app.config.from_mapping(flask_config)
-cache = Cache(app)
 
 logging.basicConfig(level=logging.INFO)
 
 
-def get_docker_containers():
-    if config.get("FLIP_FLOP_DEV_MODE"):
-        return config.get("FLIP_FLOP_MOCK_CONTAINERS")
+def read_encoded_image(path):
+    with open(path, "rb") as f:
+        return base64.b64encode(f.read()).decode("utf-8")
 
-    socket_path = config.get("FLIP_FLOP_DOCKER_SOCKET_PATH")
+
+@app.route("/trigger-render")
+def render_index():
     try:
-        client = docker.DockerClient(base_url=f"unix:/{socket_path}")
-        return {c.name: c.labels for c in client.containers.list()}
+        # Load minified CSS
+        with open("src/static/css/index.css", "r") as f:
+            index_css = f.read()
+            index_css = rcssmin.cssmin(index_css)
+
+        # Load minified JavaScript
+        with open("src/static/js/index.js", "r") as f:
+            index_js = f.read()
+            index_js = rjsmin.jsmin(index_js)
+
+        # Load and base64 encode an image
+        index_favicon = read_encoded_image("src/static/img/flip_flop_favicon.png")
+
+        # Load and encode each image
+        apps = get_docker_labels(app)
+        for a in apps:
+            path = os.path.join("src/static/img/generated/", a["icon"])
+            a["icon"] = read_encoded_image(path)
+
+        html = render_template(
+            "index.html",
+            css=index_css,
+            js=index_js,
+            favicon=index_favicon,
+            name=config.get("FLIP_FLOP_NAME"),
+            host=config.get("FLIP_FLOP_HOST"),
+            banner_title=config.get("FLIP_FLOP_BANNER_TITLE"),
+            banner_body=config.get("FLIP_FLOP_BANNER_BODY"),
+            tabs=apps,
+        )
+
+        # save html
+        directory = "src/static/html/generated/"
+        if not os.path.exists(directory):
+            os.makedirs(directory)
+
+        with open(os.path.join(directory, "index.html"), "w") as f:
+            f.write(html)
+        return "done", 200
     except Exception as e:
-        app.logger.error(str(e))
-        app.logger.error(f"Failed to connect to docker socket at {socket_path}")
+        app.logger.error(f"error while rendering index.html: {e}")
+        return str(e), 500
 
 
-def get_label(key, labels, instance):
-    instance_label = f"flip-flop.{instance}.{key}"
-    if instance_label in labels:
-        return labels[instance_label]
-
-    generic_label = f"flip-flop.{key}"
-    if generic_label in labels:
-        return labels[generic_label]
-
-    defaults = {"priority": 9999, "icon": ""}
-    if key in defaults:
-        return defaults[key]
-
-    raise Exception(f"no value or default found for key {key}")
-
-
-def get_docker_labels():
-    containers = get_docker_containers()
-    instance = config.get("FLIP_FLOP_INSTANCE")
-    tabs = []
-    for container, labels in containers.items():
-        try:
-            tab = {
-                "name": get_label("name", labels, instance),
-                "url": get_label("url", labels, instance),
-                "icon": get_label("icon", labels, instance),
-                "priority": get_label("priority", labels, instance),
-            }
-
-            tab["icon"] = get_icon(app, tab)
-
-            tabs.append(tab)
-            app.logger.info(f"Added container {container}: {tab}")
-        except Exception as e:
-            app.logger.info(f"Not adding container {container} because {str(e)}")
-    tabs.sort(key=lambda x: int(x["priority"]))
-    return tabs
+def background_render_index():
+    with app.app_context():
+        with app.test_client() as client:
+            while True:
+                try:
+                    client.get("/trigger-render")
+                except Exception as e:
+                    print(f"Error triggering render: {e}")
+                time.sleep(config.get("FLIP_FLOP_CACHE_SECONDS"))
 
 
 @app.route("/")
-@cache.cached()
 def index():
-    tabs = get_docker_labels()
-    app.logger.info(tabs)
-    return render_template(
-        "index.html",
-        name=config.get("FLIP_FLOP_NAME"),
-        host=config.get("FLIP_FLOP_HOST"),
-        banner_title=config.get("FLIP_FLOP_BANNER_TITLE"),
-        banner_body=config.get("FLIP_FLOP_BANNER_BODY"),
-        tabs=tabs,
-    )
+    path = "html/generated/index.html"
+    if not os.path.exists(os.path.join("src/static/", path)):
+        app.logger.info("pre-rendered index not found, rendering now")
+        render_index()
+    return app.send_static_file(path)
+
+
+@app.route("/<path:path>")
+def catch_all(path):
+    return app.send_static_file("html/generated/index.html")
+
+
+@app.route("/robots.txt")
+def robots_txt():
+    if config.get("FLIP_FLIP_ALLOW_ROBOTS"):
+        robots_content = "User-agent: *\nAllow: /"
+    else:
+        robots_content = "User-agent: *\nDisallow: /"
+
+    return robots_content, 200, {"Content-Type": "text/plain"}
 
 
 if __name__ == "__main__":
+    thread = threading.Thread(target=background_render_index)
+    thread.daemon = True  # Daemon threads will shut down when the main thread exits
+    thread.start()
+
     port = int(config.get("FLIP_FLOP_PORT"))
     app.run(host="0.0.0.0", port=port)

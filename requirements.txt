@@ -11,3 +11,5 @@ Pillow
 pilmoji
 beautifulsoup4
 cairosvg
+rcssmin
+rjsmin

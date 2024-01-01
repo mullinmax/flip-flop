@@ -10,13 +10,14 @@ default_config = {
     "FLIP_FLOP_THEME": "",
     "FLIP_FLOP_HOST": "https://github.com/mullinmax/flip-flop",
     "FLIP_FLOP_PORT": 80,
+    "FLIP_FLOP_ALLOW_ROBOTS": False,
     "FLIP_FLOP_INSTANCE": "default",
     "FLIP_FLOP_BANNER_TITLE": "hello",
     "FLIP_FLOP_BANNER_BODY": "this is a test",
     "FLIP_FLOP_CONFIG_PATH": "/config/flip_flop.yaml",
     "FLIP_FLOP_DOCKER_SOCKET_PATH": "/var/run/docker.sock",
     "FLIP_FLOP_DEV_MODE": False,
-    "FLIP_FLOP_CACHE_SECONDS": 30,
+    "FLIP_FLOP_CACHE_SECONDS": 300,
     "FLIP_FLOP_MOCK_CONTAINERS": {
         "mock 1": {
             "flip-flop.name": "App 1",

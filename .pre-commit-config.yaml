@@ -1,6 +1,6 @@
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.0.1  # Use the latest version
+    rev: v4.0.1
     hooks:
       - id: trailing-whitespace
       - id: check-merge-conflict
@@ -11,13 +11,13 @@ repos:
         args: [--remove]
 
   - repo: https://github.com/psf/black
-    rev: 22.3.0  # Use the latest version
+    rev: 22.3.0
     hooks:
       - id: black
         args: ['--config=pyproject.toml']
 
   - repo: https://github.com/PyCQA/flake8
-    rev: 4.0.1  # Use the latest version
+    rev: 4.0.1
     hooks:
       - id: flake8
         args: ['--config=pyproject.toml']

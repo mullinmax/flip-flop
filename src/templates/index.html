@@ -3,15 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{{ name }}">
     <title>{{ name }}</title>
-    <link rel="icon" type="png" href="{{ url_for('static', filename='img/flip_flop_favicon.png') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+    <link rel="icon" type="png" href="data:image/png;base64,{{ favicon }}">
+    <style>
+        {{ css | safe }}
+    </style>
 </head>
 <body>
-    <div id="menu-toggle" onclick="toggleMenu()">☰</div>
+    <div id="menu-toggle" onclick="toggleMenu()"></div>
     <div id="menu">
         <div class="menu-title">
-            <img src="{{ url_for('static', filename='img/flip_flop_favicon.png') }}" alt="App Favicon">
+            <img src="data:image/png;base64,{{ favicon }}" alt="App Favicon">
             <span>{{ name }}</span>
         </div>
         {% if banner_title %}
@@ -26,7 +29,7 @@
             {% for tab in tabs %}
                 <div class="tab" onclick="selectTab('{{ tab.url }}')">
                     <div class="tab-image-container">
-                        <img src="{{ url_for('static', filename='img/generated/' + tab.icon) }}" alt="{{ tab.name }}">
+                        <img src="data:image/png;base64,{{ tab.icon }}" alt="{{ tab.name }}">
                     </div>
                     <div class="tab-text-container">
                         <span>{{ tab.name }}</span>
@@ -37,9 +40,11 @@
     </div>
 
     {% for tab in tabs %}
-        <iframe id="iframe-{{ tab.name }}" class="app-iframe full-grid" src="{{ tab.url }}"></iframe>
+        <iframe id="iframe-{{ tab.name }}" class="app-iframe full-grid" src="{{ tab.url }}" title="{{ tab.name }}"></iframe>
     {% endfor %}
 
-    <script src="{{ url_for('static', filename='js/index.js') }}"></script>
+    <script>
+        {{ js | safe }}
+    </script>
 </body>
 </html>

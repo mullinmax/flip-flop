@@ -3,20 +3,28 @@ const menuToggle = document.getElementById('menu-toggle');
 let inactivityTimer;
 
 function selectTab(url) {
-    // Hide all iframes
+    // Hide all iframes and remove 'selected' class from all tabs
     document.querySelectorAll('.app-iframe').forEach(iframe => {
         iframe.style.display = 'none';
     });
+    document.querySelectorAll('.tab').forEach(tab => {
+        tab.classList.remove('selected');
+    });
 
-    // Show the selected iframe
+    // Show the selected iframe and add 'selected' class to the clicked tab
     const selectedIframe = document.querySelector(`iframe[src="${url}"]`);
     if (selectedIframe) {
         selectedIframe.style.display = 'block';
+        const selectedTab = document.querySelector(`.tab[onclick="selectTab('${url}')"]`);
+        if (selectedTab) {
+            selectedTab.classList.add('selected');
+        }
     }
 
     // Close the menu
     menu.classList.add('close');
 }
+
 
 function toggleMenu() {
     menu.classList.toggle('close');
