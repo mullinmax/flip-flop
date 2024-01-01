@@ -42,10 +42,7 @@ def save_img(img, filename):
 
 def generate_emoji_image(app, tab, force=False) -> str:
     emoji = tab["icon"]
-
     file_name = get_hash_filename(emoji)
-    if img_exists(file_name) and not force:
-        return file_name
 
     base_image_size = 300  # Size of the base image
     font_size = 300  # Larger font size for a larger emoji
@@ -127,10 +124,7 @@ def create_image_from_url(favicon_url, base_url=None):
 
 def generate_favicon_image(app, tab, force=False):
     url = tab["url"]
-
     file_name = get_hash_filename(url)
-    if img_exists(file_name) and not force:
-        return file_name
 
     try:
         # Fetch the HTML content from the URL
