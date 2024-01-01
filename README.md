@@ -199,7 +199,7 @@ These are very roughly in order
   - [x] banner overlaps with title on phone screens
   - [ ] highlight currently active app
   - [x] remove title link
-  - [ ] make menu button look like app drawer
+  - [x] make menu button look like app drawer
 #### Future:
 - front end:
     - [ ] show version in menu
