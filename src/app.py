@@ -27,58 +27,69 @@ def read_encoded_image(path):
         return base64.b64encode(f.read()).decode("utf-8")
 
 
+@app.route("/trigger-render")
 def render_index():
-    # Load minified CSS
-    with open("src/static/css/index.css", "r") as f:
-        index_css = f.read()
-        index_css = rcssmin.cssmin(index_css)
+    try:
+        # Load minified CSS
+        with open("src/static/css/index.css", "r") as f:
+            index_css = f.read()
+            index_css = rcssmin.cssmin(index_css)
 
-    # Load minified JavaScript
-    with open("src/static/js/index.js", "r") as f:
-        index_js = f.read()
-        index_js = rjsmin.jsmin(index_js)
+        # Load minified JavaScript
+        with open("src/static/js/index.js", "r") as f:
+            index_js = f.read()
+            index_js = rjsmin.jsmin(index_js)
 
-    # Load and base64 encode an image
-    index_favicon = read_encoded_image("src/static/img/flip_flop_favicon.png")
+        # Load and base64 encode an image
+        index_favicon = read_encoded_image("src/static/img/flip_flop_favicon.png")
 
-    # Load and encode each image
-    apps = get_docker_labels(app)
-    for a in apps:
-        path = os.path.join("src/static/img/generated/", a["icon"])
-        a["icon"] = read_encoded_image(path)
+        # Load and encode each image
+        apps = get_docker_labels(app)
+        for a in apps:
+            path = os.path.join("src/static/img/generated/", a["icon"])
+            a["icon"] = read_encoded_image(path)
 
-    html = render_template(
-        "index.html",
-        css=index_css,
-        js=index_js,
-        favicon=index_favicon,
-        name=config.get("FLIP_FLOP_NAME"),
-        host=config.get("FLIP_FLOP_HOST"),
-        banner_title=config.get("FLIP_FLOP_BANNER_TITLE"),
-        banner_body=config.get("FLIP_FLOP_BANNER_BODY"),
-        tabs=apps,
-    )
+        html = render_template(
+            "index.html",
+            css=index_css,
+            js=index_js,
+            favicon=index_favicon,
+            name=config.get("FLIP_FLOP_NAME"),
+            host=config.get("FLIP_FLOP_HOST"),
+            banner_title=config.get("FLIP_FLOP_BANNER_TITLE"),
+            banner_body=config.get("FLIP_FLOP_BANNER_BODY"),
+            tabs=apps,
+        )
 
-    # save html
-    directory = "src/static/html/generated/"
-    if not os.path.exists(directory):
-        os.makedirs(directory)
+        # save html
+        directory = "src/static/html/generated/"
+        if not os.path.exists(directory):
+            os.makedirs(directory)
 
-    with open(os.path.join(directory, "index.html"), "w") as f:
-        f.write(html)
+        with open(os.path.join(directory, "index.html"), "w") as f:
+            f.write(html)
+        return "done", 200
+    except Exception as e:
+        app.logger.error(f"error while rendering index.html: {e}")
+        return str(e), 500
 
 
 def background_render_index():
     with app.app_context():
-        while True:
-            render_index()
-            time.sleep(config.get("FLIP_FLOP_CACHE_SECONDS"))
+        with app.test_client() as client:
+            while True:
+                try:
+                    client.get("/trigger-render")
+                except Exception as e:
+                    print(f"Error triggering render: {e}")
+                time.sleep(config.get("FLIP_FLOP_CACHE_SECONDS"))
 
 
 @app.route("/")
 def index():
     path = "html/generated/index.html"
-    if not os.path.exists(path):
+    if not os.path.exists(os.path.join("src/static/", path)):
+        app.logger.info("pre-rendered index not found, rendering now")
         render_index()
     return app.send_static_file(path)
 
@@ -90,13 +101,9 @@ def catch_all(path):
 
 @app.route("/robots.txt")
 def robots_txt():
-    allow_robots = config.get("FLIP_FLIP_ALLOW_ROBOTS")
-
-    if allow_robots:
-        # If allowing all robots
+    if config.get("FLIP_FLIP_ALLOW_ROBOTS"):
         robots_content = "User-agent: *\nAllow: /"
     else:
-        # If disallowing all robots
         robots_content = "User-agent: *\nDisallow: /"
 
     return robots_content, 200, {"Content-Type": "text/plain"}
