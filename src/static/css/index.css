@@ -26,7 +26,7 @@ body {
     top: 0px;
     left: 0px;
     right: 0px;
-    /* bleed for screen extending when scrolling on mobile */
+    /* bleed for when screen extends when scrolling down on mobile */
     bottom: -200px;
     padding-bottom: 200px;
     display: grid;

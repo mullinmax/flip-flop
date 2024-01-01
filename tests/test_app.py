@@ -19,15 +19,8 @@ def test_index_page(client):
     response = client.get("/")
     assert response.status_code == 200
     assert "<head>" in str(response.data)
-    assert "stylesheet" in str(response.data)
-    assert "<script src=" in str(response.data)
-
-
-def test_static_files(client):
-    css_response = client.get("/static/css/index.css")
-    assert css_response.status_code == 200
-    js_response = client.get("/static/js/index.js")
-    assert js_response.status_code == 200
+    assert "<style>" in str(response.data)
+    assert "<script>" in str(response.data)
 
 
 # passes locally but not on github actions

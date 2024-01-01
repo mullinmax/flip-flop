@@ -3,3 +3,4 @@
 __pycache__
 .vscode/
 src/static/img/generated
+src/static/html/generated
