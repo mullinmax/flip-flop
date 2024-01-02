@@ -37,13 +37,21 @@
                 </div>
             {% endfor %}
         </div>
+        <div id="footer">
+            <div>Powered by <a class="link" href="https://github.com/mullinmax/flip-flop">Flip-Flop</a></div>
+            <div>Version: 1.2.1</div>
+        </div>
     </div>
-
     {% for tab in tabs %}
-        <iframe id="iframe-{{ tab.name }}" class="app-iframe full-grid" src="{{ tab.url }}" title="{{ tab.name }}"></iframe>
+        <iframe id="iframe-{{ tab.name }}" class="app-iframe full-grid" title="{{ tab.name }}"></iframe>
     {% endfor %}
 
     <script>
+        const tabsData = [
+            {% for tab in tabs %}
+                { url: "{{ tab.url }}", name: "{{ tab.name }}" },
+            {% endfor %}
+        ];
         {{ js | safe }}
     </script>
 </body>
