@@ -42,6 +42,8 @@ def render_index():
         # Load and base64 encode an image
         index_favicon = read_encoded_image("src/static/img/flip_flop_favicon.png")
 
+        version = config.get("FLIP_FLOP_VERSION")
+
         # Load and encode each image
         apps = get_docker_labels(app)
         for a in apps:
@@ -58,6 +60,7 @@ def render_index():
             banner_title=config.get("FLIP_FLOP_BANNER_TITLE"),
             banner_body=config.get("FLIP_FLOP_BANNER_BODY"),
             tabs=apps,
+            version=version,
         )
 
         # save html
