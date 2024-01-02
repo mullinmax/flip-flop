@@ -202,13 +202,14 @@ These are very roughly in order
   - [x] make menu button look like app drawer
 #### Future:
 - front end:
+    - [ ] semi-lazy load iframes (if the user isn't doing anything pre-load in priority order)
     - [ ] show version in menu
     - [ ] tab categories
     - [ ] if iframe fails to load log error and do not display
     - [ ] "full screen" button
     - [ ] custom colored banners
     - [ ] banner disapears after app is selected
-    - [ ] add footer/padding at the bottom of the menu
+    - [x] add footer/padding at the bottom of the menu
     - [ ] support for icon set in addition to emojis
     - [ ] split screen apps
     - [ ] Locally Saved Or Server Configured Layouts Of Split Screen Apps

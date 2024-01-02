@@ -49,3 +49,19 @@ function resetInactivityTimer() {
 ['touchstart', 'mousemove', 'scroll', 'click', 'mousedown'].forEach(eventType => {
     document.addEventListener(eventType, resetInactivityTimer);
 });
+
+window.onload = function() {
+    loadIframesSequentially(tabsData, 0);
+};
+
+function loadIframesSequentially(tabs, index) {
+    if (index >= tabs.length) return;
+
+    const tab = tabs[index];
+    const iframe = document.getElementById(`iframe-${tab.name}`);
+    iframe.src = tab.url;
+
+    iframe.onload = function() {
+        loadIframesSequentially(tabs, index + 1);
+    };
+}

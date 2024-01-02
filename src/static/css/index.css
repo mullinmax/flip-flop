@@ -7,7 +7,7 @@
     --banner-bg-color: #124fa5;
     --button-bg-color: #007bff;
     --button-hover-bg-color: #0056b3;
-    --text-color: white;
+    --text-color: #ced1d3;
     --button-border-radius: 10px;
     --tab-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
@@ -30,7 +30,7 @@ body {
     bottom: -200px;
     padding-bottom: 200px;
     display: grid;
-    grid-template-rows: auto auto 1fr;
+    grid-template-rows: auto auto 1fr auto;
     gap: 20px;
     padding: 20px;
     padding-bottom: 200px;
@@ -70,23 +70,22 @@ body {
     grid-column: 1 / -1;
     background-color: var(--banner-bg-color);
     color: var(--text-color);
-    padding: 10px 20px;
+    padding: calc(9px + .75vmin);
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     border-radius: 10px;
-    margin: 10px 0;
     text-align: center;
     justify-self: center;
 }
 
 .banner-title {
-    font-size: calc(20px + .75vmin);
+    font-size: calc(15px + .75vmin);
     font-weight: bold;
-    margin: 25px;
+    margin: 10px;
 }
 
 .banner-body {
-    font-size: calc(10px + .75vmin);
-    margin: 15px;
+    font-size: calc(9px + .75vmin);
+    margin: 10px;
 }
 
 .tab {
@@ -256,10 +255,6 @@ body {
     right: -70px;
 }
 
-
-
-
-
 .app-container {
     place-self: center;
     display: grid;
@@ -275,4 +270,24 @@ body {
     .app-container {
         max-width: 800px;
     }
+}
+
+#footer{
+    color:var(--text-color);
+    place-self: center;
+    display: grid;
+    place-items: center center;
+    padding: 20px;
+}
+
+.link {
+    color:var(--text-color);
+}
+
+.toenail {
+    padding-top:200px;
+    color: var(--text-color);
+    font-size: 5px;
+    place-self: center end;
+
 }
