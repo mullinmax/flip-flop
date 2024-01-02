@@ -5,6 +5,7 @@ import yaml
 logging.basicConfig(level=logging.INFO)
 
 default_config = {
+    "FLIP_FLOP_VERSION": "1.2.2",
     "FLIP_FLOP_NAME": "Flip Flop",
     "FLIP_FLOP_FAVICON": "",
     "FLIP_FLOP_THEME": "",

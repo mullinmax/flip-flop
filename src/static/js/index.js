@@ -2,7 +2,7 @@ const menu = document.getElementById('menu');
 const menuToggle = document.getElementById('menu-toggle');
 let inactivityTimer;
 
-function selectTab(url) {
+function selectTab(index) {
     // Hide all iframes and remove 'selected' class from all tabs
     document.querySelectorAll('.app-iframe').forEach(iframe => {
         iframe.style.display = 'none';
@@ -11,20 +11,30 @@ function selectTab(url) {
         tab.classList.remove('selected');
     });
 
-    // Show the selected iframe and add 'selected' class to the clicked tab
-    const selectedIframe = document.querySelector(`iframe[src="${url}"]`);
-    if (selectedIframe) {
-        selectedIframe.style.display = 'block';
-        const selectedTab = document.querySelector(`.tab[onclick="selectTab('${url}')"]`);
-        if (selectedTab) {
-            selectedTab.classList.add('selected');
-        }
+    // Get the URL from the tabsData array using the index
+    const url = tabsData[index].url;
+
+    // Find the iframe corresponding to the clicked tab
+    let selectedIframe = document.getElementById(`iframe-${index}`);
+    if (selectedIframe.getAttribute('data-loaded') === 'false') {
+        // If the iframe hasn't been loaded yet, set its src and mark it as loaded
+        selectedIframe.src = url;
+        selectedIframe.setAttribute('data-loaded', 'true');
+    }
+
+    // Display the selected iframe
+    selectedIframe.style.display = 'block';
+
+
+    // Add 'selected' class to the clicked tab
+    const selectedTab = document.querySelector(`.tab[onclick="selectTab('${url}')"]`);
+    if (selectedTab) {
+        selectedTab.classList.add('selected');
     }
 
     // Close the menu
     menu.classList.add('close');
 }
-
 
 function toggleMenu() {
     menu.classList.toggle('close');
@@ -49,19 +59,3 @@ function resetInactivityTimer() {
 ['touchstart', 'mousemove', 'scroll', 'click', 'mousedown'].forEach(eventType => {
     document.addEventListener(eventType, resetInactivityTimer);
 });
-
-window.onload = function() {
-    loadIframesSequentially(tabsData, 0);
-};
-
-function loadIframesSequentially(tabs, index) {
-    if (index >= tabs.length) return;
-
-    const tab = tabs[index];
-    const iframe = document.getElementById(`iframe-${tab.name}`);
-    iframe.src = tab.url;
-
-    iframe.onload = function() {
-        loadIframesSequentially(tabs, index + 1);
-    };
-}

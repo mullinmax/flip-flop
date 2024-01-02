@@ -27,7 +27,7 @@
         {% endif %}
         <div class="app-container">
             {% for tab in tabs %}
-                <div class="tab" onclick="selectTab('{{ tab.url }}')">
+                <div class="tab" onclick="selectTab({{ loop.index0 }})">
                     <div class="tab-image-container">
                         <img src="data:image/png;base64,{{ tab.icon }}" alt="{{ tab.name }}">
                     </div>
@@ -39,12 +39,15 @@
         </div>
         <div id="footer">
             <div>Powered by <a class="link" href="https://github.com/mullinmax/flip-flop">Flip-Flop</a></div>
-            <div>Version: 1.2.1</div>
+            <div>Version: {{version}}</div>
         </div>
     </div>
     {% for tab in tabs %}
-        <iframe id="iframe-{{ tab.name }}" class="app-iframe full-grid" title="{{ tab.name }}"></iframe>
+        <iframe id="iframe-{{ loop.index0 }}" class="app-iframe full-grid" src="" data-loaded="false" title="{{ tab.name }}" style="display: none;"></iframe>
     {% endfor %}
+
+
+
 
     <script>
         const tabsData = [
