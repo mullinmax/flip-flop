@@ -32,12 +32,14 @@ def render_index():
         # Load minified CSS
         with open("src/static/css/index.css", "r") as f:
             index_css = f.read()
-            index_css = rcssmin.cssmin(index_css)
+            if not config.get("FLIP_FLOP_SKIP_MINIFY"):
+                index_css = rcssmin.cssmin(index_css)
 
         # Load minified JavaScript
         with open("src/static/js/index.js", "r") as f:
             index_js = f.read()
-            index_js = rjsmin.jsmin(index_js)
+            if not config.get("FLIP_FLOP_SKIP_MINIFY"):
+                index_js = rjsmin.jsmin(index_js)
 
         # Load and base64 encode an image
         index_favicon = read_encoded_image("src/static/img/flip_flop_favicon.png")

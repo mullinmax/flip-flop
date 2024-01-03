@@ -25,11 +25,18 @@ function selectTab(index) {
     // Display the selected iframe
     selectedIframe.style.display = 'block';
 
-
     // Add 'selected' class to the clicked tab
-    const selectedTab = document.querySelector(`.tab[onclick="selectTab('${url}')"]`);
+    const selectedTab = document.querySelector(`.tab[onclick="selectTab(${index})"]`);
     if (selectedTab) {
         selectedTab.classList.add('selected');
+
+        // Get the icon source from the clicked tab
+        const iconSrc = selectedTab.querySelector('.tab-image-container img').src;
+
+        // Display the app icon near the spinner
+        const appIcon = document.querySelector('.loader-icon'); // Ensure you have this element in your HTML
+        appIcon.src = iconSrc;
+        appIcon.style.display = 'block';
     }
 
     // Close the menu
@@ -58,4 +65,17 @@ function resetInactivityTimer() {
 // Reset the inactivity timer on various user interactions
 ['touchstart', 'mousemove', 'scroll', 'click', 'mousedown'].forEach(eventType => {
     document.addEventListener(eventType, resetInactivityTimer);
+});
+
+
+document.getElementById('fullscreenButton').addEventListener('click', function() {
+    if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen();
+        this.textContent = 'Exit Full Screen';
+    } else {
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+            this.textContent = 'Go Full Screen';
+        }
+    }
 });
