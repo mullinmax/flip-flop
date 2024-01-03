@@ -22,8 +22,7 @@ default_config = {
     "FLIP_FLOP_MOCK_CONTAINERS": {
         "mock 1": {
             "flip-flop.name": "App 1",
-            "flip-flop.url": "https://example.com/app1",
-            "flip-flop.icon": "🌐",
+            "flip-flop.url": "https://plex.doze.dev",
         },
         "mock 2": {
             "flip-flop.name": "App 2",
@@ -31,7 +30,33 @@ default_config = {
             # "flip-flop.icon": "🔧",
             "flip-flop.priority": "2",
         },
-        "mock 3": {},
+        "mock 3": {
+            "flip-flop.name": "App 1",
+            "flip-flop.url": "https://example.com/app1",
+            "flip-flop.icon": "🌐",
+        },
+        "mock 4": {
+            "flip-flop.name": "App 2",
+            "flip-flop.url": "https://uptime.doze.dev/status/plex",
+            # "flip-flop.icon": "🔧",
+            "flip-flop.priority": "2",
+        },
+        "mock 5": {
+            "flip-flop.name": "App 1",
+            "flip-flop.url": "https://example.com/app1",
+            "flip-flop.icon": "🌐",
+        },
+        "mock 6": {
+            "flip-flop.name": "App 2",
+            "flip-flop.url": "https://uptime.doze.dev/status/plex",
+            # "flip-flop.icon": "🔧",
+            "flip-flop.priority": "2",
+        },
+        "mock 7": {
+            "flip-flop.name": "App 1",
+            "flip-flop.url": "https://example.com/app1",
+            "flip-flop.icon": "🌐",
+        },
     },
 }
 
