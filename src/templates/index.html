@@ -17,6 +17,7 @@
             <img src="data:image/png;base64,{{ favicon }}" alt="App Favicon">
             <span>{{ name }}</span>
         </div>
+        <button id="fullscreenButton">Go Full Screen</button>
         {% if banner_title %}
             <div id="banner" class="banner">
                 <span class="banner-title">{{ banner_title }}</span>
@@ -41,6 +42,10 @@
             <div>Powered by <a class="link" href="https://github.com/mullinmax/flip-flop">Flip-Flop</a></div>
             <div>Version: {{version}}</div>
         </div>
+    </div>
+    <div class="loading-spinner">
+        <img class="loader-icon" style="display: none;" alt="App Icon">
+        <div class="loader"></div>
     </div>
     {% for tab in tabs %}
         <iframe id="iframe-{{ loop.index0 }}" class="app-iframe full-grid" src="" data-loaded="false" title="{{ tab.name }}" style="display: none;"></iframe>

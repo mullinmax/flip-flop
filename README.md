@@ -202,20 +202,20 @@ These are very roughly in order
   - [x] make menu button look like app drawer
 #### Future:
 - front end:
-    - [ ] semi-lazy load iframes (if the user isn't doing anything pre-load in priority order)
-    - [ ] show version in menu
-    - [ ] tab categories
-    - [ ] if iframe fails to load log error and do not display
-    - [ ] "full screen" button
-    - [ ] custom colored banners
-    - [ ] banner disapears after app is selected
+    - [x] spinner when iframe is loading
+    - [x] show version in menu
+    - [x] "full screen" button
     - [x] add footer/padding at the bottom of the menu
+    - [ ] custom colored banners
     - [ ] support for icon set in addition to emojis
     - [ ] split screen apps
     - [ ] Locally Saved Or Server Configured Layouts Of Split Screen Apps
-    - [ ] repo link in footer
+    - [x] repo link in footer
     - [ ] PWA support
+    - [ ] tab categories
+    - [ ] if iframe fails to load log error and do not display
 - server:
+    - [x] make minifying js and css optional
     - [ ] reduce size of favicon image (automated resizing?)
     - [ ] transparency detection for favicon creation
     - [ ] custom themes/theme switching
