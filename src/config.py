@@ -28,7 +28,7 @@ default_config = {
         },
         "mock 2": {
             "flip-flop.name": "App 2",
-            "flip-flop.url": "https://uptime.doze.dev/status/plex",
+            "flip-flop.url": "https://example.com/app2",
             "flip-flop.icon": "🔧",
             "flip-flop.priority": "2",
         },
