@@ -59,26 +59,3 @@ function resetInactivityTimer() {
 ['touchstart', 'mousemove', 'scroll', 'click', 'mousedown'].forEach(eventType => {
     document.addEventListener(eventType, resetInactivityTimer);
 });
-
-
-
-
-const spinner = document.querySelector('.loading-spinner');
-const radius = window.innerWidth * 0.15; // Radius of the central area
-
-for (let i = 0; i < 100; i++) {
-    const star = document.createElement('div');
-    star.classList.add('star');
-    const angle = Math.random() * Math.PI * 2; // Random angle
-    const distance = Math.random() * radius; // Random distance within the radius
-    const x = Math.cos(angle) * distance; // X position
-    const y = Math.sin(angle) * distance; // Y position
-    star.style.left = `calc(50% + ${x}px)`;
-    star.style.top = `calc(50% + ${y}px)`;
-    const translateX = Math.cos(angle) * (window.innerWidth / 2); // X translation
-    const translateY = Math.sin(angle) * (window.innerHeight / 2); // Y translation
-    star.style.setProperty('--translateX', `${translateX}px`);
-    star.style.setProperty('--translateY', `${translateY}px`);
-    star.style.animationDuration = `${Math.random() * 3 + 2}s`; // Random duration between 2 to 5 seconds
-    spinner.appendChild(star);
-}
