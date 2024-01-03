@@ -215,7 +215,7 @@ These are very roughly in order
     - [ ] tab categories
     - [ ] if iframe fails to load log error and do not display
 - server:
-    - [ ] make minifying js and css optional
+    - [x] make minifying js and css optional
     - [ ] reduce size of favicon image (automated resizing?)
     - [ ] transparency detection for favicon creation
     - [ ] custom themes/theme switching
