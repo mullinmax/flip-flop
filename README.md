@@ -214,6 +214,7 @@ These are very roughly in order
     - [ ] PWA support
     - [ ] tab categories
     - [ ] if iframe fails to load log error and do not display
+    - [ ] make menu toggle moveable/draggable
 - server:
     - [x] make minifying js and css optional
     - [ ] reduce size of favicon image (automated resizing?)
