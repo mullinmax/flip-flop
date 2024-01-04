@@ -73,7 +73,7 @@ class Config:
         value = self._get(key)
         if key not in self.conf:
             self.conf[key] = value
-        logging.info(f"Config Value used: {key}={value}")
+            logging.info(f"Config Value set: {key}={value}")
         return value
 
     def _get(self, key):
