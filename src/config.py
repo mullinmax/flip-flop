@@ -17,6 +17,7 @@ default_config = {
     "FLIP_FLOP_BANNER_BODY": "this is a test",
     "FLIP_FLOP_CONFIG_PATH": "/config/flip_flop.yaml",
     "FLIP_FLOP_DOCKER_SOCKET_PATH": "/var/run/docker.sock",
+    "FLIP_FLOP_ALLOW_ROBOTS": False,
     "FLIP_FLOP_DEV_MODE": False,
     "FLIP_FLOP_SKIP_MINIFY": False,
     "FLIP_FLOP_CACHE_SECONDS": 300,
