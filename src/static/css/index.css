@@ -125,7 +125,7 @@ body {
     transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease; /* Smooth transition for the effects */
 }
 
-.tab-image-container, .tab-icon {
+.tab-image-container {
     width: 60%;
     height: 60%;
     display: flex;
@@ -137,6 +137,7 @@ body {
 .tab img {
     width: auto;
     height: 100%;
+    border-radius: 10px;
 }
 
 .tab-text-container {

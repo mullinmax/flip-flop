@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 import logging
 import threading
 import time
@@ -6,6 +6,8 @@ import os
 import rcssmin
 import rjsmin
 import base64
+from functools import wraps
+
 
 from src.config import config
 from src.docker import get_docker_labels
@@ -26,7 +28,31 @@ def read_encoded_image(path):
         return base64.b64encode(f.read()).decode("utf-8")
 
 
+def log_route_info(f):
+    if not config.get("FLIP_FLOP_LOG_REQUESTS"):
+        return f
+
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        client_ip = request.headers.get("X-Forwarded-For", request.remote_addr)
+        if not client_ip:
+            client_ip = request.headers.get("X-Real-IP", "Unknown IP")
+
+        user_agent = request.headers.get("User-Agent", "Unknown Agent")
+        referrer = request.headers.get("Referer", "No Referrer")
+
+        request_info = f"{client_ip},{request.path},{user_agent},{referrer}"
+        print(
+            request_info
+        )  # or use app.logger.info(request_info) if you have app context
+
+        return f(*args, **kwargs)
+
+    return decorated_function
+
+
 @app.route("/trigger-render")
+@log_route_info
 def render_index():
     try:
         # Load minified CSS
@@ -89,21 +115,8 @@ def background_render_index():
                 time.sleep(config.get("FLIP_FLOP_CACHE_SECONDS"))
 
 
-@app.route("/")
-def index():
-    path = "html/generated/index.html"
-    if not os.path.exists(os.path.join("src/static/", path)):
-        app.logger.info("pre-rendered index not found, rendering now")
-        render_index()
-    return app.send_static_file(path)
-
-
-@app.route("/<path:path>")
-def catch_all(path):
-    return app.send_static_file("html/generated/index.html")
-
-
 @app.route("/robots.txt")
+@log_route_info
 def robots_txt():
     if config.get("FLIP_FLIP_ALLOW_ROBOTS"):
         robots_content = "User-agent: *\nAllow: /"
@@ -111,6 +124,17 @@ def robots_txt():
         robots_content = "User-agent: *\nDisallow: /"
 
     return robots_content, 200, {"Content-Type": "text/plain"}
+
+
+@app.route("/")
+@app.route("/<path:path>")
+@log_route_info
+def index(path=None):
+    path = "html/generated/index.html"
+    if not os.path.exists(os.path.join("src/static/", path)):
+        app.logger.info("pre-rendered index not found, rendering now")
+        render_index()
+    return app.send_static_file(path)
 
 
 if __name__ == "__main__":
