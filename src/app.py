@@ -42,9 +42,7 @@ def log_route_info(f):
         referrer = request.headers.get("Referer", "No Referrer")
 
         request_info = f"{client_ip},{request.path},{user_agent},{referrer}"
-        print(
-            request_info
-        )  # or use app.logger.info(request_info) if you have app context
+        app.logger.info(request_info)
 
         return f(*args, **kwargs)
 
