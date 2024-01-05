@@ -217,6 +217,7 @@ These are very roughly in order
     - [ ] make menu toggle moveable/draggable
 - server:
     - [x] make minifying js and css optional
+    - [x] add time stamp to logs
     - [ ] reduce size of favicon image (automated resizing?)
     - [ ] transparency detection for favicon creation
     - [ ] custom themes/theme switching
@@ -231,3 +232,6 @@ These are very roughly in order
     - [ ] increase testing
     - [ ] type hints
     - [ ] sponsor / support via github
+    - [ ] PR/issue templates
+    - [ ] contributing guide
+    - [ ] make todo list into issues

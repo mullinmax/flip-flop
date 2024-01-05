@@ -7,7 +7,8 @@ import rcssmin
 import rjsmin
 import base64
 from functools import wraps
-
+from datetime import datetime
+import traceback
 
 from src.config import config
 from src.docker import get_docker_labels
@@ -34,6 +35,7 @@ def log_route_info(f):
 
     @wraps(f)
     def decorated_function(*args, **kwargs):
+        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         client_ip = request.headers.get("X-Forwarded-For", request.remote_addr)
         if not client_ip:
             client_ip = request.headers.get("X-Real-IP", "Unknown IP")
@@ -41,7 +43,9 @@ def log_route_info(f):
         user_agent = request.headers.get("User-Agent", "Unknown Agent")
         referrer = request.headers.get("Referer", "No Referrer")
 
-        request_info = f"{client_ip},{request.path},{user_agent},{referrer}"
+        request_info = (
+            f"{current_time}|{client_ip},{request.path},{user_agent},{referrer}"
+        )
         app.logger.info(request_info)
 
         return f(*args, **kwargs)
@@ -98,7 +102,8 @@ def render_index():
             f.write(html)
         return "done", 200
     except Exception as e:
-        app.logger.error(f"error while rendering index.html: {e}")
+        stack_trace = traceback.format_exc()
+        app.logger.error(f"Error while rendering index.html: {e}\n{stack_trace}")
         return str(e), 500
 
 
