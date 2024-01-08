@@ -223,8 +223,8 @@ These are very roughly in order
     - [ ] custom themes/theme switching
     - [ ] non-docker url/icon/name additions
     - [ ] multiple docker socks support
-    - [ ] minifier
-    - [ ] bake-in images to html
+    - [x] minifier
+    - [x] bake-in images to html
     - [ ] multi-Emoji Icons Text Wrap So They Fit In Square Image
 - dev:
     - [x] automatically update main branch and demo instances on update via webhook
