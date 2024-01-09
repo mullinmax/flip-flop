@@ -145,7 +145,7 @@ def generate_favicon_image(app, tab):
 
         app.logger.info(f"found {len(images)} images for {tab}")
         if len(images) == 0:
-            return None
+            raise Exception("no images found via favicon route for {tab}")
 
         app.logger.info("sorting images by size")
         images.sort(key=lambda x: x.size, reverse=True)
