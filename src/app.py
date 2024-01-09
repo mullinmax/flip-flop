@@ -42,7 +42,6 @@ def log_route_info(f):
 
         user_agent = request.headers.get("User-Agent", "Unknown Agent")
         referrer = request.headers.get("Referer", "No Referrer")
-
         request_info = (
             f"{current_time}|{client_ip},{request.path},{user_agent},{referrer}"
         )
