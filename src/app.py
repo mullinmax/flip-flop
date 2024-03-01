@@ -67,7 +67,7 @@ def render_index():
         with open("src/static/js/index.js", "r") as f:
             index_js = f.read()
 
-        if config.get('FLIP_FLOP_DEV_MODE'):
+        if config.get("FLIP_FLOP_DEV_MODE"):
             with open("src/static/js/dev_tools.js", "r") as f:
                 index_js += f.read()
 
