@@ -1,5 +1,6 @@
 const menu = document.getElementById('menu');
 const menuToggle = document.getElementById('menu-toggle');
+const menuToggleMove = document.getElementById('menu-toggle-move');
 let inactivityTimer;
 
 function selectTab(index) {
@@ -46,6 +47,7 @@ function selectTab(index) {
 function toggleMenu() {
     menu.classList.toggle('close');
     menuToggle.classList.toggle('close');
+    menuToggleMove.classList.toggle('close');
 }
 
 function resetInactivityTimer() {
@@ -53,11 +55,13 @@ function resetInactivityTimer() {
 
     // Ensure FAB is visible and iframes are interactive
     menuToggle.classList.remove('close');
+    menuToggleMove.classList.remove('close');
     document.querySelectorAll('iframe').forEach(iframe => iframe.style.pointerEvents = 'auto');
 
     // Set a timer to hide the FAB and disable interaction with iframes
     inactivityTimer = setTimeout(() => {
         menuToggle.classList.add('close');
+        menuToggleMove.classList.add('close');
         document.querySelectorAll('iframe').forEach(iframe => iframe.style.pointerEvents = 'none');
     }, 3000);
 }
@@ -71,11 +75,20 @@ function resetInactivityTimer() {
 document.getElementById('fullscreenButton').addEventListener('click', function() {
     if (!document.fullscreenElement) {
         document.documentElement.requestFullscreen();
-        this.textContent = 'Exit Full Screen';
     } else {
         if (document.exitFullscreen) {
             document.exitFullscreen();
-            this.textContent = 'Go Full Screen';
         }
     }
 });
+
+menuToggleMove.addEventListener('click', function() {
+    if (!menuToggle.style.transform || menuToggle.style.transform === 'translateY(0px)') {
+      menuToggle.style.transform = 'translateY(100px)';
+      menuToggleMove.style.transform = 'translateY(100px) rotate(0.5turn)';
+    } else {
+      menuToggle.style.transform = '';
+      menuToggleMove.style.transform = '';
+    }
+  });
+  

@@ -12,12 +12,13 @@
 </head>
 <body>
     <div id="menu-toggle" onclick="toggleMenu()"></div>
+    <div id="menu-toggle-move" onclick=""><span class="arrow-adjust">↓</span></div>
     <div id="menu">
         <div class="menu-title">
             <img src="data:image/png;base64,{{ favicon }}" alt="App Favicon">
             <span>{{ name }}</span>
         </div>
-        <button id="fullscreenButton">Go Full Screen</button>
+        <button id="fullscreenButton">Toggle Full Screen</button>
         {% if banner_title %}
             <div id="banner" class="banner">
                 <span class="banner-title">{{ banner_title }}</span>
