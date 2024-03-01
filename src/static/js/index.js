@@ -84,8 +84,8 @@ document.getElementById('fullscreenButton').addEventListener('click', function()
 
 menuToggleMove.addEventListener('click', function() {
     if (!menuToggle.style.transform || menuToggle.style.transform === 'translateY(0px)') {
-      menuToggle.style.transform = 'translateY(100px)';
-      menuToggleMove.style.transform = 'translateY(100px) rotate(0.5turn)';
+      menuToggle.style.transform = 'translateY(120px)';
+      menuToggleMove.style.transform = 'translateY(120px) rotate(0.5turn)';
     } else {
       menuToggle.style.transform = '';
       menuToggleMove.style.transform = '';
