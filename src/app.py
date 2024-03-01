@@ -42,6 +42,7 @@ def log_route_info(f):
 
         user_agent = request.headers.get("User-Agent", "Unknown Agent")
         referrer = request.headers.get("Referer", "No Referrer")
+
         request_info = (
             f"{current_time}|{client_ip},{request.path},{user_agent},{referrer}"
         )
@@ -65,8 +66,13 @@ def render_index():
         # Load minified JavaScript
         with open("src/static/js/index.js", "r") as f:
             index_js = f.read()
-            if not config.get("FLIP_FLOP_SKIP_MINIFY"):
-                index_js = rjsmin.jsmin(index_js)
+
+        if config.get("FLIP_FLOP_DEV_MODE"):
+            with open("src/static/js/dev_tools.js", "r") as f:
+                index_js += f.read()
+
+        if not config.get("FLIP_FLOP_SKIP_MINIFY"):
+            index_js = rjsmin.jsmin(index_js)
 
         # Load and base64 encode an image
         index_favicon = read_encoded_image("src/static/img/flip_flop_favicon.png")

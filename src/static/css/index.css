@@ -355,3 +355,41 @@ body {
 #fullscreenButton:hover {
     background-color: #2980b9;
 }
+
+#menu-toggle-move {
+    position: fixed;
+    top: 95px;
+    right: 35px;
+    z-index: 1;
+    cursor: pointer;
+    background-color: var(--app-bg-color);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    transition: transform 0.6s ease, right 0.6s ease, background-color 0.3s ease;
+    color:var(--text-color);
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Hover Animation */
+#menu-toggle-move:hover {
+    background-color: var(--button-hover-bg-color); /* Change background color on hover */
+    transform: scale(1.1); /* Rotate and slightly scale up */
+}
+
+/* Close State */
+#menu-toggle-move.close {
+    transform: scale(0.1);
+    right: -55px;
+}
+
+.arrow-adjust {
+    transform: translateY(-1px) translateX(-.5px);
+}

@@ -51,7 +51,7 @@ Making Changes and Opening a Pull Request
 3. Test out the app:
 	```bash
 	# optionally
-	export FLIP_FLIP_DEV_MODE=True
+	export FLIP_FLOP_DEV_MODE=True
 	export FLIP_FLOP_PORT=1234
 	python -m src.app
 	```
