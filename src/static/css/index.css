@@ -115,7 +115,7 @@ body {
     aspect-ratio: 4 / 3;
     box-shadow: var(--tab-box-shadow);
     overflow: hidden;
-    padding: 5px;
+    padding: 10px;
 }
 
 .tab:hover {
@@ -127,7 +127,7 @@ body {
 
 .tab-image-container {
     width: 60%;
-    height: 60%;
+    flex: 0 0 auto;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -142,8 +142,16 @@ body {
 
 .tab-text-container {
     font-size: calc(10px + .75vmin);
-    overflow: hidden;
-    text-overflow: ellipsis;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    width: 100%;
+    padding: 5px 0;
+    line-height: 1.2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1 1 auto;
+    min-height: 0;
 }
 
 .tab.selected {
