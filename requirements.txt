@@ -8,7 +8,7 @@ pytest-flask
 pre-commit
 pyyaml
 Pillow
-pilmoji
+git+https://github.com/jay3332/pilmoji.git
 beautifulsoup4
 cairosvg
 rcssmin
