@@ -8,6 +8,7 @@ pytest-flask
 pre-commit
 pyyaml
 Pillow
+emoji<2.0.0  # pilmoji v2.0.3 requires emoji<2.0
 git+https://github.com/jay3332/pilmoji.git@96a0135228aaa3d6f5ee8b05d2c80ff3d96a27f0  # jay3332/pilmoji v2.0.3 - PyPI package has broken setup.py, switch back when fixed
 beautifulsoup4
 cairosvg
