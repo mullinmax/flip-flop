@@ -1,3 +1,10 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Layout Test</title>
+    <style>
 :root {
     --background-color: #111111;
     --menu-bg-color: #333;
@@ -404,3 +411,44 @@ body {
 .arrow-adjust {
     transform: translateY(-1px) translateX(-.5px);
 }
+    </style>
+</head>
+<body>
+    <div id="menu">
+        <div class="menu-title">
+            <span>Flip Flop</span>
+        </div>
+        <button id="fullscreenButton">Toggle Full Screen</button>
+        <div id="banner" class="banner">
+            <span class="banner-title">pre-release demo instance</span>
+            <p class="banner-body">This instance of flip-flop is running the version in the main branch</p>
+        </div>
+        <div class="app-container">
+            <div class="tab">
+                <div class="tab-image-container">
+                    <img src="/home/runner/work/flip-flop/flip-flop/src/static/img/generated/square.png" alt="Square Image">
+                </div>
+                <div class="tab-text-container">
+                    <span>Flip-Flop Devlog</span>
+                </div>
+            </div>
+            <div class="tab">
+                <div class="tab-image-container">
+                    <img src="/home/runner/work/flip-flop/flip-flop/src/static/img/generated/tall.png" alt="Tall Image">
+                </div>
+                <div class="tab-text-container">
+                    <span>Status Dashboard</span>
+                </div>
+            </div>
+            <div class="tab">
+                <div class="tab-image-container">
+                    <img src="/home/runner/work/flip-flop/flip-flop/src/static/img/generated/wide.png" alt="Wide Image">
+                </div>
+                <div class="tab-text-container">
+                    <span>Chef Service</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
